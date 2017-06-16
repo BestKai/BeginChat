@@ -1,0 +1,44 @@
+PODS:
+  - Alamofire (4.4.0)
+  - AVOSCloud (4.2.0)
+  - AVOSCloudIM (4.2.0):
+    - AVOSCloud (= 4.2.0)
+    - AVOSCloudIM/_ARC (= 4.2.0)
+    - AVOSCloudIM/_NOARC (= 4.2.0)
+  - AVOSCloudIM/_ARC (4.2.0):
+    - AVOSCloud (= 4.2.0)
+    - AVOSCloudIM/_NOARC (= 4.2.0)
+  - AVOSCloudIM/_NOARC (4.2.0):
+    - AVOSCloud (= 4.2.0)
+  - IQKeyboardManagerSwift (4.0.9)
+  - Kingfisher (3.6.2)
+  - MBProgressHUD (1.0.0)
+  - MOBFoundation_IDFA (2.2.17)
+  - SMSSDK (2.1.5):
+    - MOBFoundation_IDFA
+  - SnapKit (3.2.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - AVOSCloudIM
+  - IQKeyboardManagerSwift
+  - Kingfisher
+  - MBProgressHUD
+  - MOBFoundation_IDFA
+  - SMSSDK
+  - SnapKit
+
+SPEC CHECKSUMS:
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  AVOSCloud: 5446ad0320f4942cce1a036d131992cd1115db99
+  AVOSCloudIM: 69df8e8517247f3c2585e321f24e777d5b398843
+  IQKeyboardManagerSwift: 2eefe6c429b86aa08bfbc1b5c891164d754adf91
+  Kingfisher: 2c94e72c6830622c71d06adf4ea024c37d316830
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MOBFoundation_IDFA: ce39a93c7163b2877615d3a6acd1276a6a0132e6
+  SMSSDK: 7d19654f9d36392988e96bf697afdac983808b1a
+  SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
+
+PODFILE CHECKSUM: af3cac30cdc4d61b15ab09d6fce29bb810aac89b
+
+COCOAPODS: 1.2.0
