@@ -35,11 +35,8 @@ class YKMineViewController: UIViewController {
         })
     }
     
-    
-    func logout() {
-        AVUser.logOut()
-        
-        self.navigationController?.tabBarController?.dismiss(animated: true, completion: nil)
+   @objc func logout() {
+        YKBeginChatTool.logOutFromViewController(viewController: self)
     }
     
 

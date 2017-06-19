@@ -52,12 +52,16 @@ class YKChatKit: NSObject {
     }
     
     
+    func creatConversationWithMembers(members:Array<Any>,type:YKConversationType,unique:Bool,callback:@escaping AVIMConversationResultBlock) {
+        self.conversationService.createCovnersationWithMembers(members: members, type: type, unique: unique, callback: callback)
+    }
+    
+    
     func openWithClientId(clientId:String,callback:@escaping YKBooleanResultClosure) {
         self.sessionService.openWithClientId(clientId: clientId, callback: callback)
     }
     
     func openWithClientId(clientId:String, force:Bool, callback:@escaping YKBooleanResultClosure) {
-        
         self.sessionService.openWithClientId(clientId: clientId, force: force, callback: callback)
     }
     

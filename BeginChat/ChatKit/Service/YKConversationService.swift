@@ -10,15 +10,6 @@ import Foundation
 import AVOSCloudIM
 
 
-public typealias AVProgressClosure = (NSInteger) -> Void
-public typealias YKBooleanResultClosure = (Bool,Error?) -> Void
-public typealias YKVoidClosure = () -> Void
-public typealias YKArrayResultBlock = ([Any]?, Error?) -> Void
-
-public typealias YKFetchConversationHandler = (AVIMConversation?,YKConversationViewController?) -> Void
-
-
-public typealias YKConversationResultClosure = (AVIMConversation?,Error?) -> Void
 
 
 class YKConversationService: NSObject {
@@ -31,7 +22,7 @@ class YKConversationService: NSObject {
     
     
     //MARK: - ****** Swift Singleton ******
-    open class func defaultService() -> YKConversationService {
+   @discardableResult open class func defaultService() -> YKConversationService {
         struct Static {
             //Singleton instance. Initializing keyboard manger.
             static let defaultService = YKConversationService()
@@ -45,16 +36,30 @@ class YKConversationService: NSObject {
     
     lazy var client: AVIMClient? = {
         
-        var client = self.client
-        
-        if client == nil {
-            client = YKSessionService.defaultService().client
-        }
+        let client = YKSessionService.defaultService().client
         return client
     }()
     
     
     //MARK: - ****** Public Methods ******
+    
+    func createCovnersationWithMembers(members:Array<Any>, type:YKConversationType,unique:Bool,callback:@escaping AVIMConversationResultBlock) {
+        
+        var name:String = ""
+        
+        if type == YKConversationType.Group {
+            name = "群聊"
+        }
+        
+        var options:AVIMConversationOption = AVIMConversationOption.init(rawValue: 0)
+        if unique {
+            options = .unique
+        }
+        
+        self.client?.createConversation(withName: name, clientIds: members, attributes: ["type" : type], options: options, callback: callback)
+    }
+    
+    
     func sendMessage(message: AVIMTypedMessage, conversation: AVIMConversation, progressClosure: @escaping AVProgressClosure, callBack: YKBooleanResultClosure?) {
         
         let options = AVIMMessageOption.init()
@@ -92,9 +97,43 @@ class YKConversationService: NSObject {
         }
     }
     
+    //MARK: - ****** 单聊 ******
+    func fetchConversationWithPeerId(peerId:String, callback:@escaping AVIMConversationResultBlock) {
+        
+        if !YKSessionService.defaultService().connect {
+            
+            let tempError = NSError.init(domain: "YKConversationServiceErrorDomain", code: 0, userInfo: ["code":0,NSLocalizedDescriptionKey:String.init(format: "%@","Session not opened")])
+            callback(nil,tempError)
+            return
+        }
+        
+        if peerId == YKSessionService.defaultService().clientId {
+            let tempError = NSError.init(domain: "YKConversationServiceErrorDomain", code: 0, userInfo: ["code":0,NSLocalizedDescriptionKey:String.init(format: "%@","You cannot chat with yourself")])
+            callback(nil,tempError)
+            return
+        }
+        
+        let members = [peerId,YKSessionService.defaultService().clientId]
+        
+        self.fetchConversationWithMembers(members: members as! Array<String>, type: YKConversationType.Single, callback: callback)
+    }
     
+    func fetchConversationWithMembers(members:Array<String>, type: YKConversationType, callback: @escaping AVIMConversationResultBlock) {
+        self.createCovnersationWithMembers(members: members, type: type, unique: true, callback: callback)
+    }
+    
+    //MARK: - ****** 群聊 ******
     func fetchConversationWithConversationId(conversationId:String,callBack:YKConversationResultClosure?) {
         
+        let conversation:AVIMConversation? = client?.conversation(forId: conversationId)
+        
+        if conversation != nil {
+            
+            if callBack != nil {
+                callBack!(conversation,nil)
+            }
+            return
+        }
         self.fetchConversationsWithConversationIds(conversationIds: [conversationId]) { (objects, error) in
             
             if error == nil {

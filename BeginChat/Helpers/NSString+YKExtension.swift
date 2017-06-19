@@ -22,7 +22,7 @@ public extension NSString {
     
     func height(fontSize:Float,maxWidth:Float) -> Double {
         
-        let textSize = self.boundingRect(with: CGSize.init(width: CGFloat(maxWidth), height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize:CGFloat(fontSize) ) ], context: nil).size
+        let textSize = self.boundingRect(with: CGSize.init(width: CGFloat(maxWidth), height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize:CGFloat(fontSize) ) ], context: nil).size
         
         return Double(textSize.height)
     }

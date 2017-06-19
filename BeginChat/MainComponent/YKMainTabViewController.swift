@@ -34,8 +34,7 @@ class YKMainTabViewController: UITabBarController {
         mineNav.title = "我"
         
         self.viewControllers = [chatListNav,hotUserNav,mineNav]
-        
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName:UIColor.black], for: UIControlState.selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor.rawValue:UIColor.black], for: UIControlState.selected)
     }
 
     
@@ -45,6 +44,8 @@ class YKMainTabViewController: UITabBarController {
             
             if error != nil {
                 YKProgressView.showErrorMessage(errorMsg: "会话初始化失败", view: self.view)
+            }else{
+                print("会话初始化成功")
             }
         }
     }

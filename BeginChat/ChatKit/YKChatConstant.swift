@@ -7,5 +7,18 @@
 //
 
 import Foundation
+import AVOSCloudIM
+
+
+public typealias AVProgressClosure = (NSInteger) -> Void
+public typealias YKBooleanResultClosure = (Bool,Error?) -> Void
+public typealias YKVoidClosure = () -> Void
+public typealias YKErrorClosure = (Error) -> Void
+
+public typealias YKArrayResultBlock = ([Any]?, Error?) -> Void
+
+public typealias YKFetchConversationHandler = (AVIMConversation?,YKConversationViewController?) -> Void
+
+public typealias YKConversationResultClosure = (AVIMConversation?,Error?) -> Void
 
 public let YKOnePageSize = 10

@@ -170,7 +170,6 @@ class YKChatBar: UIView,UITextViewDelegate {
     
     func registerNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 
     }
@@ -226,7 +225,7 @@ class YKChatBar: UIView,UITextViewDelegate {
     }
     
     //MARK: - ****** Keyboard ******
-    func keyboardWillHidden(notification:NSNotification) {
+   @objc func keyboardWillHidden(notification:NSNotification) {
         
         self.keyBoardHeight = 0.0
         
@@ -238,7 +237,7 @@ class YKChatBar: UIView,UITextViewDelegate {
         self.handleShowType()
     }
     
-    func keyboardWillShow(notification:NSNotification) {
+   @objc func keyboardWillShow(notification:NSNotification) {
         
         let oldHeight = self.keyBoardHeight
         
@@ -273,7 +272,7 @@ class YKChatBar: UIView,UITextViewDelegate {
     
     
     //MARK: - ****** Private Methods ******
-    func buttonAction(button: UIButton) {
+    @objc func buttonAction(button: UIButton) {
         
         if button == self.faceButton {
             self.faceButton.isSelected = !self.faceButton.isSelected

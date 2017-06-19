@@ -15,49 +15,27 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
 
     var chatBar: YKChatBar?
     
-    var conversationId : String?
-    var peerId : String?
+    var conversationId : String?//多人聊天
+    var peerId : String?//单人聊天
     var loadingMoreMessage:Bool = false
-    
     
     var fetchConversationHandler: YKFetchConversationHandler?
     
-    
-    lazy var conversation: AVIMConversation? = {
-        
-        if self.conversation != nil {
-            return self.conversation
-        }
-        
-        var conversation:AVIMConversation?
-        
-        if self.conversationId != nil {
-            
-            YKConversationService.defaultService().fetchConversationWithConversationId(conversationId: self.conversationId!, callBack: { (conversation, error) in
-                
-                if error != nil {
-                    
-                }else{
-                    
-                }
-            })
-        }
-        return conversation
-    }()
-    
+    var conversation:AVIMConversation?
     
     lazy var chatViewModel : YKConversationViewModel = {
         
-        var chatViewModel: YKConversationViewModel = YKConversationViewModel.init(parentViewController: self)
+        let chatViewModel: YKConversationViewModel = YKConversationViewModel.init(parentViewController: self)
         chatViewModel.delegate = self
         return chatViewModel
     }()
     
     
     
-    init(conversationId : String) {
+    init(conversationId : String?, peerId: String?) {
         super.init()
         self.conversationId = conversationId
+        self.peerId = peerId
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -99,7 +77,59 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
         
         
         YKMessageCellIdentifyFactory.registerChatMessageCellClassForTableView(tableView: self.tableView!)
+        self.setUpData()
     }
+    
+    private func setUpData() {
+        
+        self.setUpConversation()
+        
+        let clientStatusOpened = YKSessionService.defaultService().client?.status == AVIMClientStatus.opened
+        
+        if !clientStatusOpened {
+            print("未开启")
+        }
+    }
+    
+    private func setUpConversation() {
+        repeat {
+            
+            if peerId != nil {
+                YKConversationService.defaultService().fetchConversationWithPeerId(peerId: peerId!, callback: { (conversatioin, error) in
+                    self.refreshConversation(conversation: conversatioin!, isJoined: true)
+                })
+                break
+            }
+            
+            if self.conversationId != nil {
+                YKConversationService.defaultService().fetchConversationWithConversationId(conversationId: self.conversationId!, callBack: { (conversation, error) in
+                    
+                    if error != nil {
+                        self.refreshConversation(aConversation: conversation, isJoined: false, error: error)
+                    }else{
+                        
+                        let currentClientId = YKSessionService.defaultService().clientId
+                        
+                        if conversation?.members?.count == 0 && (!(conversation?.transient)!) {
+                            self.refreshConversation(conversation:conversation!, isJoined:true)
+                            return
+                        }
+                        
+                        let tempMembers:[String] = (conversation?.members)! as! [String]
+                        
+                        let containsCurrentClientId = tempMembers.contains(currentClientId!)
+                        
+                        if containsCurrentClientId {
+                            self.refreshConversation(conversation:conversation!, isJoined:true)
+                            
+                            return
+                        }
+                    }
+                })
+            }
+        }while false;
+    }
+    
     
     
     //MARK: - UITableViewDataSources && UITableViewDelegate
@@ -164,7 +194,10 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
         let indexPath: IndexPath = IndexPath.init(row: self.dataSources.count - 1, section: 0)
         
         DispatchQueue.main.async {
-            (self.tableView?.insertRows(at: [indexPath], with: .none))!
+//            (self.tableView?.insertRows(at: [indexPath], with: .none))!
+            
+            self.tableView?.reloadData()
+            
             self.scrollToBottomAnimated(animated: true)
         }
     }
@@ -190,8 +223,15 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     
     
     //MARK: - ****** Private Methods ******
-    private func refreshConversation(aConversation:AVIMConversation, isJoined:Bool, error:Error?) {
+    
+    private func refreshConversation(conversation:AVIMConversation, isJoined:Bool){
+        self.refreshConversation(aConversation: conversation, isJoined: isJoined, error: nil)
+    }
+    
+    
+    private func refreshConversation(aConversation:AVIMConversation?, isJoined:Bool, error:Error?) {
         if error != nil {
+            
             
         }
         
@@ -250,7 +290,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
      private func getConversationIdIfExists(conversation:AVIMConversation?) -> String? {
         var conversationId: String?
         
-        if !(self.conversationId?.isEmpty)! {
+        if self.conversationId != nil {
             conversationId = self.conversationId
         }
         
@@ -305,6 +345,10 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
         }else{
 //            chatViewModel.
         }
+    }
+    
+    private func notJoinedHandler(conversation:AVIMConversation?,error:Error){
+        
     }
     
     override public func didReceiveMemoryWarning() {

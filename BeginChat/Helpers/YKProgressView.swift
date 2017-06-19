@@ -11,6 +11,28 @@ import MBProgressHUD
 
 class YKProgressView {
     
+    
+    @discardableResult  class func showWithMessage(message:String) -> MBProgressHUD {
+        
+        let view = UIApplication.shared.keyWindow
+        
+        let hud = MBProgressHUD.showAdded(to: view!, animated: true)
+        hud.mode = MBProgressHUDMode.text
+        hud.label.text = message
+        
+        return hud
+    }
+    
+    class func hiddenProgressView(view:UIView?) {
+        
+        var tempView = view
+        if tempView == nil {
+            tempView = UIApplication.shared.keyWindow
+        }
+        MBProgressHUD.hide(for: tempView!, animated: true)
+    }
+    
+    
     class func showErrorMessage(errorMsg: String,view: UIView) {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = MBProgressHUDMode.text

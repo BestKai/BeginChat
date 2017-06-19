@@ -14,14 +14,15 @@ extension AVIMTypedMessage {
     
     static func yk_messageWithYKMessage(message:YKMessage) -> AVIMTypedMessage {
         
-        var avimTypedMessage:AVIMTypedMessage  = AVIMTypedMessage()
+        var avimTypedMessage:AVIMTypedMessage?
         
         switch message.mediaType! {
         case kAVIMMessageMediaTypeText:
            avimTypedMessage = AVIMTextMessage.init(text: message.text!, attributes: nil)
+            
         default:
             break
         }
-        return avimTypedMessage
+        return avimTypedMessage!
     }
 }

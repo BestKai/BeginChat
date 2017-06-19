@@ -219,7 +219,8 @@ class YKChatMessageTableViewCell: UITableViewCell {
         self.selectionStyle = UITableViewCellSelectionStyle.none
         self.backgroundColor = UIColor.clear
         
-        self.mediaType = self.classForCoder.classMediaType()
+        self.mediaType = self.classMediaType()
+        
     }
     
     func addGeneralView() {
@@ -245,4 +246,12 @@ class YKChatMessageTableViewCell: UITableViewCell {
         self.avatarImageView.kf.setImage(with: self.message?.sender?.avatarURL, placeholder: UIImage.init(named: "avatar_placeholder"), options: nil, progressBlock: nil, completionHandler: nil)
         
     }
+    
+    
+    
+    func classMediaType() -> AVIMMessageMediaType {
+        return kAVIMMessageMediaTypeNone
+    }
+    
+    
 }

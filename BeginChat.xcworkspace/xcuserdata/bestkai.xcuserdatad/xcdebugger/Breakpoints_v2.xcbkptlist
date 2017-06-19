@@ -16,33 +16,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BeginChat/ChatKit/YKConversationViewModel.swift"
-            timestampString = "518581688.956775"
+            filePath = "BeginChat/ChatKit/YKConversationViewController.swift"
+            timestampString = "519551407.295151"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "sendMessage(amessage:progressClosure:success:failed:)"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "setUpConversation()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeginChat/ChatKit/YKConversationViewModel.swift"
-            timestampString = "518581694.998564"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "sendMessage(message:)"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BeginChat.YKConversationViewController.(setUpConversation in _7791E063EEA106F2AF19486F56A9F576)() -&gt; ()"
+                  moduleName = "BeginChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bestkai/Desktop/MyGitHub/BeginChat/BeginChat/ChatKit/YKConversationViewController.swift"
+                  timestampString = "519547682.553837"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "720">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.AVIMConversation&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in BeginChat.YKConversationViewController.(setUpConversation in _7791E063EEA106F2AF19486F56A9F576)() -&gt; ()"
+                  moduleName = "BeginChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bestkai/Desktop/MyGitHub/BeginChat/BeginChat/ChatKit/YKConversationViewController.swift"
+                  timestampString = "519547682.557318"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

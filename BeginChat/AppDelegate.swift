@@ -22,8 +22,7 @@ let LCClientKey = "O2FoUrynhG12xYoLrF1gJOMY"
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -34,11 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
-        
-        if (AVUser.current() != nil) {
-            self.window?.rootViewController = YKMainTabViewController.init()
-        }
-    
+            
         return true
     }
 

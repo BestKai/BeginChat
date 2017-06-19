@@ -10,7 +10,7 @@ import Foundation
 import AVOSCloudIM
 class YKSessionService: NSObject,AVIMClientDelegate {
     
-    open class func defaultService() -> YKSessionService {
+    @discardableResult open class func defaultService() -> YKSessionService {
         struct Static {
             //Singleton instance. Initializing keyboard manger.
             static let defaultService = YKSessionService()
@@ -22,6 +22,8 @@ class YKSessionService: NSObject,AVIMClientDelegate {
     
     var client:AVIMClient?
     var clientId:String?
+    
+    open var connect = false
     
     
     func openWithClientId(clientId:String,callback: YKBooleanResultClosure?) {
@@ -60,14 +62,16 @@ class YKSessionService: NSObject,AVIMClientDelegate {
     
     
     func updateConnectStatus() {
-        
+        connect = client?.status == AVIMClientStatus.opened
     }
     
     
     
     func closeWithCallBack(callback:@escaping YKBooleanResultClosure) {
+        
         client?.close(callback: { (succeeded, error) in
             if succeeded {
+                AVUser.logOut()
                 callback(succeeded, error)
                 self.resetService()
             }

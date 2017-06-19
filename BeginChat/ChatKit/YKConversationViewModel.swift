@@ -20,17 +20,16 @@ class YKConversationViewModel: NSObject {
     
     var delegate:YKConversationViewModelDelegate?
     
-    lazy var currentConversation: AVIMConversation = {
-        let currentConversation:AVIMConversation = self.parentViewController.conversation!
+    lazy var currentConversation: AVIMConversation? = {
+        var currentConversation:AVIMConversation? = self.parentViewController.conversation
         return currentConversation
     }()
     
     lazy var currentConversationId: String = {
         
-        let currentConversationId = self.currentConversation.conversationId
+        let currentConversationId = self.currentConversation?.conversationId
         return currentConversationId!
     }()
-    
     
     
     init(parentViewController: YKConversationViewController) {
@@ -72,7 +71,7 @@ class YKConversationViewModel: NSObject {
         
         self.preloadMessageToTableView(aMessage: message) { 
             
-            YKConversationService.defaultService().sendMessage(message: avimTypedMessage, conversation: currentConversation, progressClosure: progressClosure!, callBack: { (succeeded, error) in
+            YKConversationService.defaultService().sendMessage(message: avimTypedMessage, conversation: currentConversation!, progressClosure: progressClosure!, callBack: { (succeeded, error) in
                 if error != nil {
                     if success != nil{
                         success!(succeeded,nil)
@@ -125,7 +124,7 @@ class YKConversationViewModel: NSObject {
             messageWithSystemMessages.append(messsage)
             let tempMsg:YKMessage = messsage as! YKMessage
             
-            if index > 0 {
+            if index < 1 {
                 messageWithSystemMessages.insert(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!), at: 0)
             }else{
                 if tempMsg.shouldDisplayTiemLabel(lastMessage: messageWithSystemMessages[index - 1] as? YKMessage) {
@@ -159,7 +158,7 @@ class YKConversationViewModel: NSObject {
         
         self.parentViewController.loadingMoreMessage = true
         
-        YKConversationService.defaultService().queryTypedMessagesWithConversation(conversation: self.currentConversation, timestamp: tempTimestamp, limit: YKOnePageSize) { (avimTypedMessages, error) in
+        YKConversationService.defaultService().queryTypedMessagesWithConversation(conversation: self.currentConversation!, timestamp: tempTimestamp, limit: YKOnePageSize) { (avimTypedMessages, error) in
             
         }
     }

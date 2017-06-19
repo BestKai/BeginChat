@@ -9,6 +9,14 @@
 import Foundation
 import AVOSCloudIM
 
-protocol YKChatCellSubclassMedaiTypeProtocol {
-    static func classMediaType() -> AVIMMessageMediaType
-}
+//protocol YKChatCellSubclassMedaiTypeProtocol {
+//    static func classMediaType() -> AVIMMessageMediaType
+//}
+
+//extension YKChatMessageTableViewCell {
+//
+//    static func classMediaType() -> AVIMMessageMediaType{
+//        return kAVIMMessageMediaTypeNone
+//    }
+//}
+

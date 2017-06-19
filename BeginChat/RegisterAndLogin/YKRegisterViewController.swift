@@ -119,7 +119,7 @@ class YKRegisterViewController: UIViewController,UITextFieldDelegate {
 
     }
     //MARK: - 发送验证码
-    func sendVerifiCode() {
+    @objc func sendVerifiCode() {
         
         let phoneNumberStr = phoneNumberTextField?.text
         
@@ -149,7 +149,7 @@ class YKRegisterViewController: UIViewController,UITextFieldDelegate {
         smsTimer?.fire()
     }
     
-    func countDownTime() {
+   @objc func countDownTime() {
         originSecond -= 1
         
         if originSecond >= 0 {
@@ -166,7 +166,7 @@ class YKRegisterViewController: UIViewController,UITextFieldDelegate {
     
     //MARK: - UITextFieldNotification
 
-    func textFieldTextDidChange(notification:NSNotification) {
+   @objc func textFieldTextDidChange(notification:NSNotification) {
         let textField = notification.object as! UITextField
         
         if textField == phoneNumberTextField {
@@ -177,7 +177,7 @@ class YKRegisterViewController: UIViewController,UITextFieldDelegate {
         registerButton?.ykIsEnable = ((phoneNumberTextField?.text?.isAvaliablePhoneNumber())! && codeTextField?.text?.characters.count == 4 && ((passwordTextField?.text?.characters.count)! >= 6))
     }
     
-    func registerUser() {
+    @objc func registerUser() {
         let hud = YKProgressView.showIndeterminate(view:(self.navigationController?.view)!)
         
         let phoneNumber = phoneNumberTextField?.text

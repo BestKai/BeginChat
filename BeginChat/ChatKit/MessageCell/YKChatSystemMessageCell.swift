@@ -9,7 +9,7 @@
 import UIKit
 import AVOSCloudIM
 
-class YKChatSystemMessageCell: YKChatMessageTableViewCell,YKChatCellSubclassMedaiTypeProtocol {
+class YKChatSystemMessageCell: YKChatMessageTableViewCell {
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -72,7 +72,7 @@ class YKChatSystemMessageCell: YKChatMessageTableViewCell,YKChatCellSubclassMeda
     }
     
     //MARK: - protocol
-    class func classMediaType() -> AVIMMessageMediaType {
+    override func classMediaType() -> AVIMMessageMediaType {
         return kAVIMMessageMediaTypeSystem
     }
 }

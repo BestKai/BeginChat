@@ -94,11 +94,10 @@ class YKUserDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         return footerView
     }
     
-    func goToChatViewController() {
+   @objc func goToChatViewController() {
         
-        let conversationVC = YKCustomConversationViewController.init(conversationId: "")
-        
-        self.navigationController?.pushViewController(conversationVC, animated: true)
+    let conversationVC = YKCustomConversationViewController.init(conversationId: nil, peerId: currentUser?.objectId)
+    self.navigationController?.pushViewController(conversationVC, animated: true)
     }
     
     

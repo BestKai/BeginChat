@@ -24,6 +24,15 @@ class ViewController: UIViewController {
         let infoDic = Bundle.main.infoDictionary
         self.title = infoDic?["CFBundleDisplayName"] as? String
         self.initSubViews()
+        
+        if (AVUser.current() != nil) {
+            
+            let mainTabbarVC = YKMainTabViewController.init()
+            
+            mainTabbarVC.modalTransitionStyle = .crossDissolve
+            self.present(mainTabbarVC, animated: true, completion: {
+            })
+        }
     }
     
     func initSubViews() {
@@ -57,7 +66,7 @@ class ViewController: UIViewController {
         loginButton?.layer.masksToBounds = true
         loginButton?.layer.borderColor = UIColor.init(colorLiteralRed: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1).cgColor
         loginButton?.layer.borderWidth = 0.5
-        loginButton?.addTarget(self, action: #selector(loginBtTapped), for: UIControlEvents.touchUpInside)
+        loginButton?.addTarget(self, action:#selector(loginBtTapped), for: UIControlEvents.touchUpInside)
         self.view.addSubview(loginButton!)
         
         
@@ -103,13 +112,13 @@ class ViewController: UIViewController {
     }
     
     
-    func goToRegisterViewController() {
+    @objc func goToRegisterViewController() {
         
         let registerVC = YKRegisterViewController.init()
         self.navigationController?.pushViewController(registerVC, animated: true)
     }
     
-    func loginBtTapped() {
+   @objc  func loginBtTapped() {
         
         let hud = YKProgressView.showIndeterminate(view: (self.navigationController?.view)!)
         
@@ -131,7 +140,6 @@ class ViewController: UIViewController {
     func goToMainTabbarViewController() {
         
         let mainTabbarVC = YKMainTabViewController.init()
-        
         self.navigationController?.present(mainTabbarVC, animated: true, completion: nil)
     }
     
