@@ -9,73 +9,40 @@
 import UIKit
 import SnapKit
 
-class YKChatListViewController: UIViewController {
-
+class YKChatListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
+    var dataSources = Array<Any>()
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView.init()
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "聊天"
         self.view.backgroundColor = UIColor.white
         
-        if #available(iOS 9.0, *) {
-            let stackView = UIStackView.init()
-            
-            stackView.backgroundColor = UIColor.black
-            
-            let label = UILabel.init()
-            
-            label.numberOfLines = 2;
-            
-            label.text = "anlkdnfkansdnfoiansdi";
-            label.backgroundColor = UIColor.red
-            
-            stackView.addSubview(label)
-
-            self.view.addSubview(stackView)
-            
-            stackView.snp.makeConstraints { (make) in
-                make.left.equalTo(80)
-                make.right.equalTo(-80)
-                make.top.equalTo(80)
-                
-                make.height.equalTo(50)
-                //            make.height.equalTo(50)
-            }
-
-            
-            label.snp.makeConstraints { (make) in
-                make.left.equalTo(0)
-                make.right.equalTo(0)
-                make.top.equalTo(0)
-            }
-
-            
-            
-            let label02 = UILabel.init()
-            
-            label02.numberOfLines = 2;
-            
-            label02.text = "anlkdnfkansdnfoiansdi";
-            label02.backgroundColor = UIColor.red
-            
-            self.view.addSubview(label02)
-            
-            label02.snp.makeConstraints { (make) in
-                make.left.equalTo(80)
-                make.right.equalTo(-80)
-                make.top.equalTo(stackView.snp.bottom).offset(50)
-            }
-            
-
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        
-
-        
+        self.view.addSubview(self.tableView)
+        self.setUpConstraint()
     }
-
+    
+    func setUpConstraint() {
+        
+        self.tableView.snp.makeConstraints { (make) in
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
+        }
+    }
+    
+    //MARK: - ****** UITableViewDelegate && UITableViewDataSources ******
+    
+    
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

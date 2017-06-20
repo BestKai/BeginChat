@@ -68,7 +68,7 @@ class YKBaseMessage {
     var receiverHasRead: Bool?
     var ownerName: String?
     var chatType = YKConversationType.Single
-    var cellHeight = 0.0
+    var cellHeight:CGFloat = 0.0
     
 }
 
@@ -81,15 +81,18 @@ class YKMessage: YKBaseMessage {
     var text: String?
     
     var mediaType:AVIMMessageMediaType?
-
+    
+    override init() {
+        super.init()
+    }
     //MARK: - Text Message
-    init(mediaType:AVIMMessageMediaType, text:String, sender:YKUser?, timestamp:TimeInterval, serverMessageId:String?, chatType:YKConversationType) {
+    init(text:String, sender:YKUser?, timestamp:TimeInterval, serverMessageId:String?, chatType:YKConversationType) {
         super.init()
         self.text = text
         self.sender = sender
         self.timestamp = timestamp
         self.serverMessageId = serverMessageId
-        self.mediaType = mediaType
+        self.mediaType = kAVIMMessageMediaTypeText
         self.chatCellHeight()
     }
     
@@ -116,6 +119,33 @@ class YKMessage: YKBaseMessage {
         
         return message
     }
+    
+    
+    
+    class func messageWithAVIMTypedMessage(message:AVIMTypedMessage) -> YKMessage? {
+        
+        var ykMessage:YKMessage = YKMessage.init()
+        let mediaType = message.mediaType
+        
+        switch mediaType {
+        case kAVIMMessageMediaTypeText:
+            
+            let textMsg = message as! AVIMTextMessage
+            ykMessage = YKMessage.init(text: textMsg.text!, sender: nil, timestamp: TimeInterval(textMsg.sendTimestamp), serverMessageId: textMsg.messageId, chatType: .Single)
+        default: break
+            
+        }
+        
+        if YKSessionService.defaultService().clientId == message.clientId {
+            ykMessage.ownerType = .BySelf
+        }else{
+            ykMessage.ownerType = .ByOther
+        }
+        ykMessage.sendStatus = YKMessageSendStatus.init(rawValue: Int(message.status.rawValue))!
+        
+        return ykMessage
+    }
+    
 }
 
 
@@ -134,11 +164,11 @@ extension YKMessage {
                 textHeight! += (YK_MSG_CELL_NAME_FONTSIZE + 4.0)
             }
             
-            self.cellHeight = textHeight! + (YK_MSG_CELL_TEXT_CONTENT_INSET * 2) + YK_MSG_CELL_CONTENT_BOTTOM_MARGIN
+            self.cellHeight = CGFloat(textHeight!) + (YK_MSG_CELL_TEXT_CONTENT_INSET * 2) + CGFloat(YK_MSG_CELL_CONTENT_BOTTOM_MARGIN)
         
         case kAVIMMessageMediaTypeSystem:
             
-            self.cellHeight = YK_MSG_CELL_TIME_HEIGHT + YK_MSG_CELL_CONTENT_BOTTOM_MARGIN + YK_MSG_CELL_TIME_TOP_MARGIN
+            self.cellHeight = CGFloat(YK_MSG_CELL_TIME_HEIGHT + YK_MSG_CELL_CONTENT_BOTTOM_MARGIN + YK_MSG_CELL_TIME_TOP_MARGIN)
             
         default:
             self.cellHeight = 0

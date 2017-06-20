@@ -124,6 +124,7 @@
 		E25457451EB98A61008141B0 /* YKChatProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25457441EB98A61008141B0 /* YKChatProtocol.swift */; };
 		E2B327F21EAE02570079222F /* NSString+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B327F11EAE02570079222F /* NSString+YKExtension.swift */; };
 		E2B66E9E1EF4CE67006C8D53 /* YKBeginChatTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B66E9D1EF4CE67006C8D53 /* YKBeginChatTool.swift */; };
+		E2B816901EF91E8F0030E169 /* YKConversationListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8168F1EF91E8F0030E169 /* YKConversationListService.swift */; };
 		E2E1A5591EADE9160002ADD3 /* app_icon_200@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2E1A5581EADE9160002ADD3 /* app_icon_200@2x.png */; };
 		E2E1A55C1EADF97A0002ADD3 /* YKRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1A55B1EADF97A0002ADD3 /* YKRegisterViewController.swift */; };
 		E2F07A801EAA093800ECFA13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F07A7F1EAA093800ECFA13 /* AppDelegate.swift */; };
@@ -256,6 +257,7 @@
 		E2B327F11EAE02570079222F /* NSString+YKExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+YKExtension.swift"; sourceTree = "<group>"; };
 		E2B327F31EAED0050079222F /* BeginChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeginChat.entitlements; sourceTree = "<group>"; };
 		E2B66E9D1EF4CE67006C8D53 /* YKBeginChatTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKBeginChatTool.swift; sourceTree = "<group>"; };
+		E2B8168F1EF91E8F0030E169 /* YKConversationListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKConversationListService.swift; sourceTree = "<group>"; };
 		E2E1A5561EADDD040002ADD3 /* BeginChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeginChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		E2E1A5581EADE9160002ADD3 /* app_icon_200@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon_200@2x.png"; sourceTree = "<group>"; };
 		E2E1A55B1EADF97A0002ADD3 /* YKRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKRegisterViewController.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 			children = (
 				E21442971EE141E90033CE17 /* YKConversationService.swift */,
 				E2FC561D1EE8F5A100280714 /* YKSessionService.swift */,
+				E2B8168F1EF91E8F0030E169 /* YKConversationListService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -882,6 +885,7 @@
 				E20AEC731EB2EEA60022A053 /* NSObject+YKExtension.swift in Sources */,
 				E2F07A801EAA093800ECFA13 /* AppDelegate.swift in Sources */,
 				E20AEC661EB0758F0022A053 /* YKCustomConversationViewController.swift in Sources */,
+				E2B816901EF91E8F0030E169 /* YKConversationListService.swift in Sources */,
 				E20AEC561EB028710022A053 /* UIView+YKExtension.swift in Sources */,
 				E20AEC6A1EB07BD10022A053 /* YKMessage.swift in Sources */,
 				E20AEC3C1EAEEDD50022A053 /* YKProgressView.swift in Sources */,

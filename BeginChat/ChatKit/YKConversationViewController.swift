@@ -47,6 +47,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.chatViewModel.setDefaultBackgroundImge()
     }
 
     override func setUpUI() {
@@ -148,7 +149,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let message = self.dataSources[indexPath.row] as! YKMessage
-        return CGFloat(message.cellHeight)
+        return message.cellHeight
     }
     
     
@@ -191,7 +192,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     
     func messageSendStateChanged(message: Any, sendStatus: YKMessageSendStatus, progress: Double) {
         
-        let indexPath: IndexPath = IndexPath.init(row: self.dataSources.count - 1, section: 0)
+        let _: IndexPath = IndexPath.init(row: self.dataSources.count - 1, section: 0)
         
         DispatchQueue.main.async {
 //            (self.tableView?.insertRows(at: [indexPath], with: .none))!
@@ -201,6 +202,13 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
             self.scrollToBottomAnimated(animated: true)
         }
     }
+    
+    
+    func reloadAfterReceiveMessage() {
+        self.tableView?.reloadData()
+        self.scrollToBottomAnimated(animated: true)
+    }
+    
     
     
     //MARK: - ****** PublicMethods ******
@@ -215,7 +223,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     
     func sendTextMessage(_ message:String) {
         
-        let textMessage = YKMessage.init(mediaType: kAVIMMessageMediaTypeText, text: message, sender: nil, timestamp: YK_CURRENT_TIMESTAMP, serverMessageId: nil, chatType: .Single)
+        let textMessage = YKMessage.init(text: message, sender: nil, timestamp: YK_CURRENT_TIMESTAMP, serverMessageId: nil, chatType: .Single)
         
         chatViewModel.sendMessage(message: textMessage)
     }

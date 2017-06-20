@@ -39,7 +39,6 @@ class YKMainTabViewController: UITabBarController {
 
     
     func startService() {
-        
         YKChatKit.defaultKit().openWithClientId(clientId:(AVUser.current()?.objectId)!) { (succeeded, error) in
             
             if error != nil {

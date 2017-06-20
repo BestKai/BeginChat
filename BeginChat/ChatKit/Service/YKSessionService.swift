@@ -78,6 +78,43 @@ class YKSessionService: NSObject,AVIMClientDelegate {
         })
     }
     
+    
+    
+    //MARK: - ****** AVIMMessageDelegate ******
+    func conversation(_ conversation: AVIMConversation, didReceiveCommonMessage message: AVIMMessage) {
+        //自定义消息走
+        self.recivedMessage(message: message as! AVIMTypedMessage, conversation: conversation)
+    }
+    
+    func conversation(_ conversation: AVIMConversation, didReceive message: AVIMTypedMessage) {
+        
+        self.recivedMessage(message: message, conversation: conversation)
+    }
+    
+    func conversation(_ conversation: AVIMConversation, didReceiveUnread unread: Int) {
+        
+    }
+    
+    
+    func recivedMessage(message:AVIMTypedMessage, conversation:AVIMConversation) {
+        
+        if message.mediaType > 0 {
+//            let userInfo = [YKMessageNotificationUserInfoConversationKey:conversation,yk]
+            
+        }
+        
+        self.receivedMessages(messages: [message], conversation: conversation, isUnReadMessage: true)
+    }
+    
+    func receivedMessages(messages:Array<AVIMTypedMessage>,conversation:AVIMConversation, isUnReadMessage:Bool) {
+        
+        let userInfo = [YKMessageNotificationUserInfoConversationKey:conversation,YKDidReceiveMessagesUserInfoMessagesKey:messages] as [String : Any]
+        
+        let notificationName = NSNotification.Name(rawValue: YKNotificationMessageReceived)
+        NotificationCenter.default.post(name:notificationName, object: userInfo)
+    }
+    
+    
     func resetService() {
         
     }

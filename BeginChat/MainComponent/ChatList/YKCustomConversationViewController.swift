@@ -8,7 +8,8 @@
 
 import UIKit
 import AVOSCloudIM
-import IQKeyboardManagerSwift
+//import IQKeyboardManagerSwift
+import IQKeyboardManager
 
 class YKCustomConversationViewController: YKConversationViewController {
 
@@ -30,12 +31,16 @@ class YKCustomConversationViewController: YKConversationViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        IQKeyboardManager.sharedManager().enable = false
+        
+        IQKeyboardManager.shared().isEnabled = false
+//        IQKeyboardManager.sharedManager().enable = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        IQKeyboardManager.sharedManager().enable = true
+//        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared().isEnabled = true
+        
     }
     
     override func didReceiveMemoryWarning() {

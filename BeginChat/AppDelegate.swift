@@ -8,8 +8,9 @@
 
 import UIKit
 import AVOSCloud
-import IQKeyboardManagerSwift
+//import IQKeyboardManagerSwift
 
+import IQKeyboardManager
 
 //Some App Key
 let SMSAppKey = "1d492c25c8650"
@@ -30,10 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         YKChatKit.defaultKit().setIdAndKey(appId: LCAppID, appKey: LCClientKey)
         
-        IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
-        IQKeyboardManager.sharedManager().enableAutoToolbar = false
-            
+//        IQKeyboardManager.sharedManager().enable = true
+//        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
+//        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         return true
     }
 

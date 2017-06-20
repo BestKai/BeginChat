@@ -22,3 +22,11 @@ public typealias YKFetchConversationHandler = (AVIMConversation?,YKConversationV
 public typealias YKConversationResultClosure = (AVIMConversation?,Error?) -> Void
 
 public let YKOnePageSize = 10
+
+
+public let YKNotificationMessageReceived = "YKNotificationMessageReceived"
+public let YKDidReceiveMessagesUserInfoMessagesKey = "receivedMessages"
+public let YKMessageNotificationUserInfoConversationKey = "conversation"
+
+
+

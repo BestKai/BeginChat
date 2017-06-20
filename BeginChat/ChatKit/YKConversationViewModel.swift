@@ -12,6 +12,8 @@ protocol YKConversationViewModelDelegate {
     func messageSendStateChanged(message:Any, sendStatus:YKMessageSendStatus,progress:Double) -> Void
     
     func messageReadStateChanged(message:Any, readStatus:YKMessageReadStatus,progress:Double) -> ()
+    
+    func reloadAfterReceiveMessage() -> Void
 }
 
 class YKConversationViewModel: NSObject {
@@ -34,7 +36,12 @@ class YKConversationViewModel: NSObject {
     
     init(parentViewController: YKConversationViewController) {
         self.parentViewController = parentViewController
+        
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveMessage(notification:)), name: NSNotification.Name(rawValue: YKNotificationMessageReceived), object: nil)
+    }
+    
+    public func setDefaultBackgroundImge() {
     }
     
     func sendMessage(message:Any) {
@@ -72,7 +79,7 @@ class YKConversationViewModel: NSObject {
         self.preloadMessageToTableView(aMessage: message) { 
             
             YKConversationService.defaultService().sendMessage(message: avimTypedMessage, conversation: currentConversation!, progressClosure: progressClosure!, callBack: { (succeeded, error) in
-                if error != nil {
+                if error == nil {
                     if success != nil{
                         success!(succeeded,nil)
                     }
@@ -97,7 +104,7 @@ class YKConversationViewModel: NSObject {
 //        let newLastMessageCount = self.parentViewController.dataSources.count
         
         delegate?.messageSendStateChanged(message: message, sendStatus: .Sending, progress: 0.0)
-        
+        callBack()
     }
     
     private func appendingMessagesToTrailing(messages:Array<Any>){
@@ -118,24 +125,31 @@ class YKConversationViewModel: NSObject {
         
         var messageWithSystemMessages:Array = [Any]()
         
-        messageWithSystemMessages = (lastMessage != nil) ? [lastMessage!] : Array()
-        
         for (index,messsage) in messages.enumerated() {
-            messageWithSystemMessages.append(messsage)
             let tempMsg:YKMessage = messsage as! YKMessage
             
-            if index < 1 {
-                messageWithSystemMessages.insert(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!), at: 0)
+            if lastMessage != nil {
+                if index == 0 {
+                    if tempMsg.shouldDisplayTiemLabel(lastMessage:lastMessage as? YKMessage) {
+                       messageWithSystemMessages.append(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!))                   }
+                }else{
+                    if tempMsg.shouldDisplayTiemLabel(lastMessage: messageWithSystemMessages[index - 1] as? YKMessage) {
+                        messageWithSystemMessages.append(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!))
+                    }
+                }
             }else{
-                if tempMsg.shouldDisplayTiemLabel(lastMessage: messageWithSystemMessages[index - 1] as? YKMessage) {
-                    messageWithSystemMessages.insert(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!), at: messageWithSystemMessages.count - 1)
+                if index == 0 {
+                    messageWithSystemMessages.append(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!))
+                    
+                }else {
+                    if tempMsg.shouldDisplayTiemLabel(lastMessage: messageWithSystemMessages[index - 1] as? YKMessage) {
+                        messageWithSystemMessages.append(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!))
+                    }
                 }
             }
+            messageWithSystemMessages.append(tempMsg)
         }
         
-        if (lastMessage != nil) {
-            messageWithSystemMessages.removeFirst()
-        }
         return messageWithSystemMessages
     }
     
@@ -159,8 +173,59 @@ class YKConversationViewModel: NSObject {
         self.parentViewController.loadingMoreMessage = true
         
         YKConversationService.defaultService().queryTypedMessagesWithConversation(conversation: self.currentConversation!, timestamp: tempTimestamp, limit: YKOnePageSize) { (avimTypedMessages, error) in
-            
         }
+    }
+    
+    @objc func receiveMessage(notification:NSNotification) {
+        
+        let userInfo:[String:Any] = notification.object as! [String : Any]
+        
+        let messages:Array<AVIMTypedMessage> = userInfo[YKDidReceiveMessagesUserInfoMessagesKey]! as! Array<AVIMTypedMessage>
+        
+        let conversation:AVIMConversation = userInfo[YKMessageNotificationUserInfoConversationKey] as! AVIMConversation
+        
+        if !self.isCurrentConversationMessageForConversationId(conversationId: conversation.conversationId!) {
+            return
+        }
+        
+        let currentConversation = self.parentViewController.conversation
+         if !(currentConversation?.muted)! {
+            //播放声音
+        }
+        
+        DispatchQueue.global().async {
+            
+            let ykMessages = self.messagesWithAVIMMessages(messages: messages)
+            DispatchQueue.main.async {
+                self.recivedNewMessages(messages: ykMessages)
+            }
+        }
+    }
+    
+    func recivedNewMessages(messages:Array<Any>) {
+        self.appendingMessagesToTrailing(messages: messages)
+        self.delegate?.reloadAfterReceiveMessage()
+    }
+    
+    
+    
+  private func isCurrentConversationMessageForConversationId(conversationId:String) -> Bool {
+        
+        return conversationId == self.parentViewController.conversationId
+    }
+    
+    func messagesWithAVIMMessages(messages:Array<AVIMTypedMessage>) -> Array<YKMessage> {
+        
+        var allMessages = Array<YKMessage>()
+        
+        for avimTypeMessage:AVIMTypedMessage in messages {
+            
+            let message = YKMessage.messageWithAVIMTypedMessage(message: avimTypeMessage)
+            if message != nil {
+                allMessages.append(message!)
+            }
+        }
+        return allMessages
     }
     
 }

@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeginChat/ChatKit/YKConversationViewController.swift"
-            timestampString = "519551407.295151"
+            timestampString = "519642007.579769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "setUpConversation()"
             landmarkType = "7">
             <Locations>
