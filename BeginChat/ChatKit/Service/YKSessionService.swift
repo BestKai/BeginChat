@@ -26,6 +26,7 @@ class YKSessionService: NSObject,AVIMClientDelegate {
     open var connect = false
     
     
+    //MARK: - ****** Methods ******
     func openWithClientId(clientId:String,callback: YKBooleanResultClosure?) {
         self.openWithClientId(clientId: clientId, force: true, callback: callback)
     }

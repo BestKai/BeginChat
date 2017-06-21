@@ -45,7 +45,23 @@ class YKMainTabViewController: UITabBarController {
                 YKProgressView.showErrorMessage(errorMsg: "会话初始化失败", view: self.view)
             }else{
                 print("会话初始化成功")
+                self.conversationListVCRefreshData()
             }
+        }
+    }
+    
+    func conversationListVCRefreshData() {
+        
+        let viewControllers = self.viewControllers
+        
+        let firstNavVC:UINavigationController = viewControllers?.first as! UINavigationController
+        
+        let rootViewController = firstNavVC.viewControllers.first
+        
+        if (rootViewController?.isKind(of: YKChatListViewController.self))! {
+            
+            let chatVC:YKChatListViewController = rootViewController as! YKChatListViewController
+            chatVC.loadConversationData()
         }
     }
     

@@ -43,12 +43,19 @@ class YKConversationService: NSObject {
     
     //MARK: - ****** Public Methods ******
     
-    func createCovnersationWithMembers(members:Array<Any>, type:YKConversationType,unique:Bool,callback:@escaping AVIMConversationResultBlock) {
+    func createCovnersationWithMembers(members:Array<String>, type:YKConversationType,unique:Bool,callback:@escaping AVIMConversationResultBlock) {
         
         var name:String = ""
         
         if type == YKConversationType.Group {
             name = "群聊"
+        }else {
+            
+            for (_,memberId) in members.enumerated() {
+                if memberId != YKSessionService.defaultService().clientId{
+                    name = memberId
+                }
+            }
         }
         
         var options:AVIMConversationOption = AVIMConversationOption.init(rawValue: 0)

@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import AVOSCloudIM
 
 class YKChatListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -17,6 +18,9 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         let tableView = UITableView.init()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = 68
+        tableView.register(YKConversationListCell.self, forCellReuseIdentifier: String(describing: YKConversationListCell.self))
+        tableView.tableFooterView = UIView()
         return tableView
     }()
     
@@ -28,6 +32,8 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         
         self.view.addSubview(self.tableView)
         self.setUpConstraint()
+        
+        self.loadConversationData()
     }
     
     func setUpConstraint() {
@@ -37,10 +43,42 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
+    func loadConversationData() {
+        YKConversationListService.defaultService().fetchRelationConversationFromServer { (objects, error) in
+            if objects != nil {
+                self.dataSources = objects!
+            }
+            self.tableView.reloadData()
+        }
+    }
+    
+    
     //MARK: - ****** UITableViewDelegate && UITableViewDataSources ******
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.dataSources.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell:YKConversationListCell = tableView.dequeueReusableCell(withIdentifier: String(describing: YKConversationListCell.self)) as! YKConversationListCell
+        cell.conversation = self.dataSources[indexPath.row] as? AVIMConversation
+        return cell
+    }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let conversation:AVIMConversation? = self.dataSources[indexPath.row] as? AVIMConversation
+        
+        let conversationVC:YKCustomConversationViewController
+        if !(conversation?.transient)! {
+            conversationVC = YKCustomConversationViewController.init(conversationId: conversation?.conversationId, peerId:nil)
+        }else{
+            conversationVC = YKCustomConversationViewController.init(conversationId: nil, peerId:conversation?.conversationId)
+        }
+        conversationVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(conversationVC, animated: true)
+    }
     
     
     override func didReceiveMemoryWarning() {

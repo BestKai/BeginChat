@@ -53,7 +53,7 @@ class YKChatKit: NSObject {
     
     
     func creatConversationWithMembers(members:Array<Any>,type:YKConversationType,unique:Bool,callback:@escaping AVIMConversationResultBlock) {
-        self.conversationService.createCovnersationWithMembers(members: members, type: type, unique: unique, callback: callback)
+        self.conversationService.createCovnersationWithMembers(members: members as! Array<String>, type: type, unique: unique, callback: callback)
     }
     
     
