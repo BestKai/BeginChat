@@ -11,7 +11,7 @@ import AVOSCloud
 
 class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
-    private var dataSources = [AVUser]()
+    private var dataSources = [YKUser]()
     private var refreshControl:UIRefreshControl?
     
     lazy var tableView: UITableView = {
@@ -61,7 +61,11 @@ class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewD
         
         query.findObjectsInBackground { (objects, error) in
             
-            self.dataSources = objects as! [AVUser]
+            self.dataSources = [YKUser]()
+            
+            for (_,avuser) in (objects?.enumerated())! {
+                self.dataSources.append(YKUser.init(user: avuser as! AVUser))
+            }
             
             self.tableView.reloadData()
             

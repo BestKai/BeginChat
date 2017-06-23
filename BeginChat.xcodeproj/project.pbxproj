@@ -126,6 +126,8 @@
 		E25792F31EFA16C900C07065 /* UITableViewCell+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25792F21EFA16C900C07065 /* UITableViewCell+YKExtension.swift */; };
 		E2A6165E1EFA665B0020D565 /* UIColor+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6165D1EFA665B0020D565 /* UIColor+YKExtension.swift */; };
 		E2B327F21EAE02570079222F /* NSString+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B327F11EAE02570079222F /* NSString+YKExtension.swift */; };
+		E2B5E9F11EFCB53000F63951 /* YKMineSimpleInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B5E9F01EFCB53000F63951 /* YKMineSimpleInfoTableViewCell.swift */; };
+		E2B5E9F31EFCC20000F63951 /* YKMineOtherFuncTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B5E9F21EFCC20000F63951 /* YKMineOtherFuncTableViewCell.swift */; };
 		E2B66E9E1EF4CE67006C8D53 /* YKBeginChatTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B66E9D1EF4CE67006C8D53 /* YKBeginChatTool.swift */; };
 		E2B816901EF91E8F0030E169 /* YKConversationListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8168F1EF91E8F0030E169 /* YKConversationListService.swift */; };
 		E2E1A5591EADE9160002ADD3 /* app_icon_200@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2E1A5581EADE9160002ADD3 /* app_icon_200@2x.png */; };
@@ -262,6 +264,8 @@
 		E2A6165D1EFA665B0020D565 /* UIColor+YKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+YKExtension.swift"; sourceTree = "<group>"; };
 		E2B327F11EAE02570079222F /* NSString+YKExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+YKExtension.swift"; sourceTree = "<group>"; };
 		E2B327F31EAED0050079222F /* BeginChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeginChat.entitlements; sourceTree = "<group>"; };
+		E2B5E9F01EFCB53000F63951 /* YKMineSimpleInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKMineSimpleInfoTableViewCell.swift; sourceTree = "<group>"; };
+		E2B5E9F21EFCC20000F63951 /* YKMineOtherFuncTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKMineOtherFuncTableViewCell.swift; sourceTree = "<group>"; };
 		E2B66E9D1EF4CE67006C8D53 /* YKBeginChatTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKBeginChatTool.swift; sourceTree = "<group>"; };
 		E2B8168F1EF91E8F0030E169 /* YKConversationListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKConversationListService.swift; sourceTree = "<group>"; };
 		E2E1A5561EADDD040002ADD3 /* BeginChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeginChat-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -335,6 +339,7 @@
 		E20AEC451EAEF9E00022A053 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				E2B5E9EF1EFCACC400F63951 /* View */,
 				E20AEC491EAEFB4F0022A053 /* YKMineViewController.swift */,
 			);
 			path = Mine;
@@ -561,6 +566,15 @@
 			isa = PBXGroup;
 			children = (
 				E25792EE1EFA0F5C00C07065 /* YKConversationListCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E2B5E9EF1EFCACC400F63951 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E2B5E9F01EFCB53000F63951 /* YKMineSimpleInfoTableViewCell.swift */,
+				E2B5E9F21EFCC20000F63951 /* YKMineOtherFuncTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -900,6 +914,7 @@
 				E214429A1EE153630033CE17 /* Dictionary+YKExtension.swift in Sources */,
 				E20AEC431EAEF9310022A053 /* YKMainTabViewController.swift in Sources */,
 				E20AEC5F1EB06F770022A053 /* YKConversationViewController.swift in Sources */,
+				E2B5E9F11EFCB53000F63951 /* YKMineSimpleInfoTableViewCell.swift in Sources */,
 				E20AEC731EB2EEA60022A053 /* NSObject+YKExtension.swift in Sources */,
 				E2F07A801EAA093800ECFA13 /* AppDelegate.swift in Sources */,
 				E25792F31EFA16C900C07065 /* UITableViewCell+YKExtension.swift in Sources */,
@@ -913,6 +928,7 @@
 				E2FC561E1EE8F5A100280714 /* YKSessionService.swift in Sources */,
 				E2FC56221EEA854C00280714 /* AVIMConversation+YKExtension.swift in Sources */,
 				E22579AC1EEE260B00432490 /* YKChatConstant.swift in Sources */,
+				E2B5E9F31EFCC20000F63951 /* YKMineOtherFuncTableViewCell.swift in Sources */,
 				E21442981EE141E90033CE17 /* YKConversationService.swift in Sources */,
 				E20AEC4A1EAEFB4F0022A053 /* YKMineViewController.swift in Sources */,
 			);

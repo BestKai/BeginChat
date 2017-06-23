@@ -11,7 +11,7 @@ import AVOSCloud
 
 class YKUserDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
-    public var currentUser: AVUser?
+    public var currentUser: YKUser?
     
     lazy var tableView: UITableView = {
         let tableView = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.width, height: self.view.height), style: UITableViewStyle.plain)
@@ -31,7 +31,7 @@ class YKUserDetailViewController: UIViewController,UITableViewDelegate,UITableVi
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
-        self.title = currentUser?.username
+        self.title = currentUser?.name
         
         self.initSubViews()
     }
@@ -96,7 +96,7 @@ class YKUserDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     
    @objc func goToChatViewController() {
         
-    let conversationVC = YKCustomConversationViewController.init(conversationId: nil, peerId: currentUser?.objectId)
+    let conversationVC = YKCustomConversationViewController.init(conversationId: nil, peerId: currentUser?.userId)
     self.navigationController?.pushViewController(conversationVC, animated: true)
     }
     

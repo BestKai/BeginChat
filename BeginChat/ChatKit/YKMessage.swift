@@ -51,6 +51,26 @@ let kAVIMMessageMediaTypeSystem: AVIMMessageMediaType = -7
 
 
 class YKUser {
+    
+    @discardableResult open class func currentUser() -> YKUser? {
+        if AVUser.current() == nil {
+            return nil
+        }
+        struct Static {
+            //Singleton instance. Initializing keyboard manger.
+            static let currentUser = YKUser(user: AVUser.current())
+            private init(){}
+        }
+        /** @return Returns the default singleton instance. */
+        return Static.currentUser
+    }
+    
+    init(user:AVUser?) {
+        self.userId = user?.objectId
+        self.name = user?.username
+        self.avatarURL = user?.object(forKey: "avatar") != nil ? URL.init(string: (user?.object(forKey: "avatar") as? String)!) : nil
+    }
+    
     var userId: String?
     var name: String?
     var avatarURL: URL?

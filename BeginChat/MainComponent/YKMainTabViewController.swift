@@ -20,6 +20,8 @@ class YKMainTabViewController: UITabBarController {
         self.initSubViewControllers()
         
         self.startService()
+        
+        self.updateCurrentUserInfo()
     }
 
     func initSubViewControllers() {
@@ -48,6 +50,12 @@ class YKMainTabViewController: UITabBarController {
                 self.conversationListVCRefreshData()
             }
         }
+    }
+    
+    func updateCurrentUserInfo() {
+        AVUser.current()?.fetchInBackground({ (user, error) in
+            print("信息更新成功")
+        })
     }
     
     func conversationListVCRefreshData() {

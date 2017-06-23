@@ -15,7 +15,7 @@ class YKHotUserTableViewCell: UITableViewCell {
     var avatarImageView: UIImageView?
     var nickNameLabel: UILabel?
     
-    var user: AVUser?
+    var user: YKUser?
     
     
     override func awakeFromNib() {
@@ -57,12 +57,12 @@ class YKHotUserTableViewCell: UITableViewCell {
     }
     
     
-    func setUser(user:AVUser?) {
+    func setUser(user:YKUser?) {
         self.user = user
         
-        avatarImageView?.kf.setImage(with: URL(string: "http://up.qqjia.com/z/face01/face06/facejunyong/junyong02.jpg"), placeholder: UIImage.init(named: "avatar_placeholder"), options: nil, progressBlock: nil, completionHandler: nil)
+        avatarImageView?.kf.setImage(with:user?.avatarURL, placeholder: UIImage.init(named: "avatar_placeholder"), options: nil, progressBlock: nil, completionHandler: nil)
         
-        nickNameLabel?.text = (user?.username == nil) ? "未设置" : user?.username
+        nickNameLabel?.text = (user?.name == nil) ? "未设置" : user?.name
     }
     
     
