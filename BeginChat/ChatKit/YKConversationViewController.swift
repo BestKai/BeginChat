@@ -18,6 +18,8 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     var conversationId : String?//多人聊天
     var peerId : String?//单人聊天
     var loadingMoreMessage:Bool = false
+    var shouldLoadMoreMessages:Bool = true
+    
     
     var fetchConversationHandler: YKFetchConversationHandler?
     
@@ -349,9 +351,13 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     func handleLoadHistoryMessagesHandlerIfIsJoined(isJoined:Bool) {
         
         if isJoined {
-            //不在会话中
+            //在会话中
+            self.chatViewModel.loadMessagesFirstTimeWithCallback(callback: { (succeeded, error) in
+                self.tableView?.reloadData()
+            })
         }else{
 //            chatViewModel.
+            
         }
     }
     

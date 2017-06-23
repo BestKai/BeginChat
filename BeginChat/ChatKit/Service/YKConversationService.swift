@@ -42,7 +42,7 @@ class YKConversationService: NSObject {
     
     
     //MARK: - ****** Public Methods ******
-    
+    //创建会话
     func createCovnersationWithMembers(members:Array<String>, type:YKConversationType,unique:Bool,callback:@escaping AVIMConversationResultBlock) {
         
         var name:String = ""
@@ -66,7 +66,7 @@ class YKConversationService: NSObject {
         self.client?.createConversation(withName: name, clientIds: members, attributes: ["type" : type], options: options, callback: callback)
     }
     
-    
+    //发送消息
     func sendMessage(message: AVIMTypedMessage, conversation: AVIMConversation, progressClosure: @escaping AVProgressClosure, callBack: YKBooleanResultClosure?) {
         
         let options = AVIMMessageOption.init()
@@ -103,6 +103,7 @@ class YKConversationService: NSObject {
             }
         }
     }
+    
     
     //MARK: - ****** 单聊 ******
     func fetchConversationWithPeerId(peerId:String, callback:@escaping AVIMConversationResultBlock) {
@@ -183,12 +184,12 @@ class YKConversationService: NSObject {
     
     func queryTypedMessagesWithConversation(conversation:AVIMConversation, timestamp:Int, limit:Int, closure:AVIMArrayResultBlock?) {
         
-        let callback: AVIMArrayResultBlock = {(messages:[Any]?,error:Error) -> Void in
+        let callback: AVIMArrayResultBlock = {(messages,error) in
             
             if closure != nil {
                 closure!(messages,error)
             }
-        } as! AVIMArrayResultBlock
+        }
         
         if timestamp == 0 {
             

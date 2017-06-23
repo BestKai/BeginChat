@@ -8,6 +8,8 @@
 
 import UIKit
 import AVOSCloud
+import UserNotifications
+
 //import IQKeyboardManagerSwift
 
 import IQKeyboardManager
@@ -38,9 +40,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         IQKeyboardManager.shared().isEnableAutoToolbar = false
+        
+        self.registerForRemoteNotification()
+        
         return true
     }
-
+    
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        AVOSCloud.handleRemoteNotifications(withDeviceToken: deviceToken)
+        
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -65,4 +76,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
+
+extension AppDelegate:UNUserNotificationCenterDelegate {
+    
+    func registerForRemoteNotification() {
+        
+        let unCenter:UNUserNotificationCenter = UNUserNotificationCenter.current()
+        unCenter.delegate = self
+        unCenter.requestAuthorization(options: [.badge,.badge,.sound]) { (granted, error) in
+            
+            if error != nil {
+                print("出错了",error as Any)
+            }else{
+                print("授权成功")
+                
+                UIApplication.shared.registerForRemoteNotifications()//不加不会执行didRegisterForRemoteNotificationsWithDeviceToken方法
+            }
+        }
+        
+        unCenter.getNotificationSettings { (setting) in
+            
+            if setting.authorizationStatus == UNAuthorizationStatus.notDetermined {
+                print("未选择")
+            }else if setting.authorizationStatus == UNAuthorizationStatus.denied {
+                print("未授权")
+            }else{
+                print("已授权")
+            }
+        }
+    }
+    
+    
+    //MARK: - ****** UNUserNotificationCenterDelegate ******
+    //在后台和启动之前收到推送内容，点击推送后执行的方法
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        completionHandler()
+    }
+    
+    //在前台收到推送内容，执行方法
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler(.sound)
+    }
+    
+    
+}
+
+
+
 

@@ -13,6 +13,8 @@ import AVOSCloudIM
 class YKChatListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     var dataSources = Array<Any>()
+    var refreshControl:UIRefreshControl?
+    
     
     lazy var tableView: UITableView = {
         let tableView = UITableView.init()
@@ -21,6 +23,10 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         tableView.rowHeight = 68
         tableView.register(YKConversationListCell.self, forCellReuseIdentifier: String(describing: YKConversationListCell.self))
         tableView.tableFooterView = UIView()
+        
+        self.refreshControl = UIRefreshControl.init()
+        self.refreshControl?.addTarget(self, action: #selector(refreshConversationData), for: UIControlEvents.valueChanged)
+        tableView.refreshControl = self.refreshControl
         return tableView
     }()
     
@@ -33,7 +39,10 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         self.view.addSubview(self.tableView)
         self.setUpConstraint()
         
-        self.loadConversationData()
+        self.loadConversationData(isrefresh: false)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshConversationList), name: NSNotification.Name(rawValue: YKNotificationMessageReceived), object: nil)
     }
     
     func setUpConstraint() {
@@ -43,13 +52,22 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
-    func loadConversationData() {
-        YKConversationListService.defaultService().fetchRelationConversationFromServer { (objects, error) in
+   @objc func refreshConversationData() {
+        self.loadConversationData(isrefresh: true)
+    }
+    
+    func loadConversationData(isrefresh:Bool) {
+        YKConversationListService.defaultService().fetchRelationConversationFromServer(isRefresh: isrefresh) { (objects, error) in
             if objects != nil {
                 self.dataSources = objects!
             }
             self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
         }
+    }
+    
+    @objc func refreshConversationList() {
+        
     }
     
     

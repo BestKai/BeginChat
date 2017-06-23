@@ -12,7 +12,7 @@ import AVOSCloud
 class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     private var dataSources = [AVUser]()
-    
+    private var refreshControl:UIRefreshControl?
     
     lazy var tableView: UITableView = {
         let tableView = UITableView.init(frame: CGRect.zero, style: UITableViewStyle.plain)
@@ -21,6 +21,12 @@ class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewD
         tableView.tableFooterView = UIView.init()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        self.refreshControl = UIRefreshControl.init()
+        self.refreshControl?.addTarget(self, action: #selector(refreshHotUserData), for: UIControlEvents.valueChanged)
+        tableView.refreshControl = self.refreshControl
+        
+        
         return tableView
     }()
     
@@ -44,6 +50,10 @@ class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     
+    @objc func refreshHotUserData() {
+        self.getDataSources()
+    }
+    
     func getDataSources() {
         let query = AVQuery.init(className: "_User")
         
@@ -54,6 +64,8 @@ class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewD
             self.dataSources = objects as! [AVUser]
             
             self.tableView.reloadData()
+            
+            self.refreshControl?.endRefreshing()
         }
     }
     

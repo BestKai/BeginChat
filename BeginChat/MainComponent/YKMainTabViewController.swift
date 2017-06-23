@@ -61,7 +61,7 @@ class YKMainTabViewController: UITabBarController {
         if (rootViewController?.isKind(of: YKChatListViewController.self))! {
             
             let chatVC:YKChatListViewController = rootViewController as! YKChatListViewController
-            chatVC.loadConversationData()
+            chatVC.loadConversationData(isrefresh: false)
         }
     }
     

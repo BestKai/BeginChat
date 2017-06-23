@@ -154,25 +154,42 @@ class YKConversationViewModel: NSObject {
     }
     
     
-    func loadMessagesFirstTimeWithCallback(callback:YKBooleanResultClosure) {
-        
-        
+    func loadMessagesFirstTimeWithCallback(callback:@escaping YKBooleanResultClosure) {
+        self.queryAndCacheMessageWithTimestamp(timestamp: 0) { (messages, error) in
+            
+            for (_,message) in (messages?.enumerated())! {
+                
+                let ykmessage = YKMessage.messageWithAVIMTypedMessage(message: message as! AVIMTypedMessage)
+                if ykmessage != nil {
+                  self.parentViewController.dataSources.append(ykmessage!)
+                    
+                }
+            }
+            callback(true,nil)
+        }
     }
     
-    func queryAndCacheMessageWithTimestamp(timestamp:Int,closure:AVIMArrayResultBlock) {
+    func queryAndCacheMessageWithTimestamp(timestamp:Int,closure:@escaping AVIMArrayResultBlock) {
         var tempTimestamp = timestamp
         
         if self.parentViewController.loadingMoreMessage {
             return
         }
-        
         if self.parentViewController.dataSources.count == 0 {
             tempTimestamp = 0
         }
         
         self.parentViewController.loadingMoreMessage = true
-        
         YKConversationService.defaultService().queryTypedMessagesWithConversation(conversation: self.currentConversation!, timestamp: tempTimestamp, limit: YKOnePageSize) { (avimTypedMessages, error) in
+            self.parentViewController.loadingMoreMessage = false
+            
+            if avimTypedMessages?.count == 0 {
+                self.parentViewController.shouldLoadMoreMessages = false
+                
+            }else {
+                self.parentViewController.shouldLoadMoreMessages = true
+            }
+            closure(avimTypedMessages,error)
         }
     }
     

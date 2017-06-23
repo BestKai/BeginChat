@@ -21,15 +21,18 @@ class YKConversationListService: NSObject {
         return Static.defaultService
     }
     
-    func fetchRelationConversationFromServer(callback:@escaping AVIMArrayResultBlock) {
+    func fetchRelationConversationFromServer(isRefresh:Bool, callback:@escaping AVIMArrayResultBlock) {
         
         let client = YKSessionService.defaultService().client
         
         let conversationQuery = client?.conversationQuery()
         
-        conversationQuery?.limit = 100
-        
-        conversationQuery?.cachePolicy = .cacheThenNetwork
+        conversationQuery?.limit = 1000
+        if isRefresh {
+            conversationQuery?.cachePolicy = .networkOnly
+        }else{
+            conversationQuery?.cachePolicy = .cacheThenNetwork
+        }
         conversationQuery?.option = .withMessage
      conversationQuery?.findConversations(callback: callback)
     }
