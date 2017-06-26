@@ -94,10 +94,22 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         }else{
             conversationVC = YKCustomConversationViewController.init(conversationId: nil, peerId:conversation?.conversationId)
         }
+        
+        conversationVC.refreshConversationClosure = {(refreshConversation) in
+            
+            self.refreshConversation(conversation: refreshConversation, index: indexPath.row)
+        }
+        
         conversationVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(conversationVC, animated: true)
     }
     
+    
+    func refreshConversation(conversation:AVIMConversation,index:Int) {
+        
+            self.dataSources[0] = conversation as Any
+            self.tableView.reloadRows(at: [IndexPath.init(row: index, section: 0)], with: .none)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

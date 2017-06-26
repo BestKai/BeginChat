@@ -20,6 +20,8 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     var loadingMoreMessage:Bool = false
     var shouldLoadMoreMessages:Bool = true
     
+    var refreshConversationClosure: ((AVIMConversation) -> Void)?
+    
     
     var fetchConversationHandler: YKFetchConversationHandler?
     
@@ -202,6 +204,10 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
             self.tableView?.reloadData()
             
             self.scrollToBottomAnimated(animated: true)
+            
+            if self.refreshConversationClosure != nil {
+                self.refreshConversationClosure!(self.conversation!)
+            }
         }
     }
     
@@ -209,6 +215,10 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     func reloadAfterReceiveMessage() {
         self.tableView?.reloadData()
         self.scrollToBottomAnimated(animated: true)
+        
+        if self.refreshConversationClosure != nil {
+            self.refreshConversationClosure!(self.conversation!)
+        }
     }
     
     
@@ -354,6 +364,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
             //在会话中
             self.chatViewModel.loadMessagesFirstTimeWithCallback(callback: { (succeeded, error) in
                 self.tableView?.reloadData()
+                self.scrollToBottomAnimated(animated: true)
             })
         }else{
 //            chatViewModel.

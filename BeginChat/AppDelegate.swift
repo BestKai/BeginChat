@@ -15,8 +15,6 @@ import UserNotifications
 import IQKeyboardManager
 
 //Some App Key
-let SMSAppKey = "1d492c25c8650"
-let SMSAppSecret = "46a568c5f90c5675d80450b7f2dff5a2"
 let LCAppID = "FbA3He52KVxrdMf0y5qv0WEL-gzGzoHsz"
 let LCClientKey = "O2FoUrynhG12xYoLrF1gJOMY"
 
@@ -28,8 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        SMSSDK.registerApp(SMSAppKey, withSecret: SMSAppSecret)
         
         YKChatKit.defaultKit().setIdAndKey(appId: LCAppID, appKey: LCClientKey)
         

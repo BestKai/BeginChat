@@ -1,7 +1,7 @@
 use_frameworks!
 platform :ios, '9.0'
 target 'BeginChat' do
-    pod 'MOBFoundation_IDFA'
+#    pod 'MOBFoundation_IDFA'
     pod 'SMSSDK'
     pod 'SnapKit', :git => 'https://github.com/SnapKit/SnapKit.git', :branch => 'swift-4'
     pod 'AVOSCloudIM'

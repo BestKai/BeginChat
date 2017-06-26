@@ -70,7 +70,7 @@ class YKMessageCellIdentifyFactory {
             ownerTypeKey = YKCellIdentifyOwnerSystem
         }
         
-        let mediaType:Int = Int(message.mediaType!)
+        let mediaType:Int = Int(message.mediaType!.rawValue)
         
         let cellClass = YKChatMessageCellMediaTypeDict?[mediaType]
         
@@ -111,7 +111,7 @@ class YKMessageCellBubbleImageFactory {
         var imagePath = "message_"
         
         switch messageType {
-        case kAVIMMessageMediaTypeImage , kAVIMMessageMediaTypeLocation:
+        case .image , .location:
             imagePath.append("hollow_")
         default:
             break

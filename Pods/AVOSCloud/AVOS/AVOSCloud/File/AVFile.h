@@ -121,7 +121,6 @@ The name of the file.
 
 /*!
  Saves the file asynchronously.
- @return whether the save succeeded.
  */
 - (void)saveInBackground;
 
@@ -327,6 +326,14 @@ The name of the file.
  @param block The block to execute. The block should have the following argument signature: (BOOL succeeded, NSError *error)
  */
 - (void)deleteInBackgroundWithBlock:(AVBooleanResultBlock)block;
+
+/*!
+ Delete an array of files asynchronously.
+
+ @param files The files to be deleted.
+ @param block The callback of deletion request.
+ */
++ (void)deleteFiles:(NSArray<AVFile *> *)files inBackgroundWithBlock:(AVBooleanResultBlock)block;
 
 /*!
  Remove file in background.

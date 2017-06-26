@@ -107,12 +107,12 @@ class YKConversationListCell: UITableViewCell {
             let typedMessage:AVIMTypedMessage? = lastMessage as? AVIMTypedMessage
             
             switch typedMessage?.mediaType {
-            case kAVIMMessageMediaTypeText?:
+            case .text?:
                 let textMsg:AVIMTextMessage = typedMessage as! AVIMTextMessage
                 message = textMsg.text!
-            case kAVIMMessageMediaTypeImage?:
+            case .image?:
                 message = "[图片]"
-            case kAVIMMessageMediaTypeLocation?:
+            case .location?:
                 message = "[地理位置]"
             default:
                 message = "未知消息类型"

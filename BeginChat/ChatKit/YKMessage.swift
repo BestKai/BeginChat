@@ -47,7 +47,7 @@ enum YKConversationType: Int {
     case Group      //群聊
 }
 
-let kAVIMMessageMediaTypeSystem: AVIMMessageMediaType = -7
+let kAVIMMessageMediaTypeSystem: AVIMMessageMediaType = AVIMMessageMediaType(rawValue: -7)!
 
 
 class YKUser {
@@ -112,7 +112,7 @@ class YKMessage: YKBaseMessage {
         self.sender = sender
         self.timestamp = timestamp
         self.serverMessageId = serverMessageId
-        self.mediaType = kAVIMMessageMediaTypeText
+        self.mediaType = AVIMMessageMediaType.text
         self.chatCellHeight()
     }
     
@@ -148,7 +148,7 @@ class YKMessage: YKBaseMessage {
         let mediaType = message.mediaType
         
         switch mediaType {
-        case kAVIMMessageMediaTypeText:
+        case .text:
             
             let textMsg = message as! AVIMTextMessage
             ykMessage = YKMessage.init(text: textMsg.text!, sender: nil, timestamp: TimeInterval(textMsg.sendTimestamp), serverMessageId: textMsg.messageId, chatType: .Single)
@@ -178,7 +178,7 @@ extension YKMessage {
         let showName = self.ownerType == YKMessageOwnerType.ByOther && self.chatType == YKConversationType.Group
         
         switch self.mediaType! {
-        case kAVIMMessageMediaTypeText:
+        case .text:
             
             if showName {
                 textHeight! += (YK_MSG_CELL_NAME_FONTSIZE + 4.0)

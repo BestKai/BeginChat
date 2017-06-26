@@ -30,7 +30,7 @@ let YK_MSG_CELL_TIME_TOP_MARGIN = 8.0
 
 let YK_MSG_CELL_AVATAR_NAME_MARGIN = 8.0
 let YK_MSG_CELL_NAME_CONTENT_MARGIN = 2.0
-let YK_MSG_CELL_EDGES_OFFSET = 16.0
+let YK_MSG_CELL_EDGES_OFFSET = 10.0
 let YK_MSG_CELL_CONTENT_BOTTOM_MARGIN = 12.0
 
 let YK_MSG_CELL_TEXT_CONTENT_INSET = CGFloat((YK_MSG_CELL_AVATAR_WH - Double(UIFont.systemFont(ofSize: CGFloat(YK_MSG_CELL_TEXT_FONTSIZE)).lineHeight))/2.0)
@@ -38,9 +38,7 @@ let YK_MSG_CELL_TEXT_CONTENT_INSET = CGFloat((YK_MSG_CELL_AVATAR_WH - Double(UIF
 let YK_MSG_CELL_BUBBLE_WIDTH = 6.0
 
 
-let YK_MSG_CELL_MAX_TEXT_WIDTH = ScreenWidth - 2 * (CGFloat(YK_MSG_CELL_AVATAR_WH) + CGFloat(YK_MSG_CELL_EDGES_OFFSET) + CGFloat(YK_MSG_CELL_AVATAR_NAME_MARGIN) - YK_MSG_CELL_TEXT_CONTENT_INSET * 2)
-
-
+let YK_MSG_CELL_MAX_TEXT_WIDTH = ScreenWidth - 2 * (CGFloat(YK_MSG_CELL_AVATAR_WH) + CGFloat(YK_MSG_CELL_EDGES_OFFSET) + YK_MSG_CELL_TEXT_CONTENT_INSET)
 
 class YKMessageContentView: UIView {
     init() {
@@ -249,7 +247,7 @@ class YKChatMessageTableViewCell: UITableViewCell {
     
     //MARK: - ****** 子类必须继承的方法 ******
     func classMediaType() -> AVIMMessageMediaType {
-        return kAVIMMessageMediaTypeNone
+        return .none
     }
     
     

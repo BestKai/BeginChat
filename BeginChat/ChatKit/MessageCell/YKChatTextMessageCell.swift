@@ -55,11 +55,7 @@ class YKChatTextMessageCell: YKChatMessageTableViewCell {
             textMessageEdgeInsets = UIEdgeInsetsMake(YK_MSG_CELL_TEXT_CONTENT_INSET, 8, YK_MSG_CELL_TEXT_CONTENT_INSET, 8)
         }
         self.messageTextLabel.snp.makeConstraints { (make) in
-            
             make.width.lessThanOrEqualTo(YK_MSG_CELL_MAX_TEXT_WIDTH)
-//           make.left.equalTo(textMessageEdgeInsets.left)
-//           make.right.equalTo(-8)
-//            make.top.equalTo(8)
             make.edges.equalTo(self.messageContentView).inset(textMessageEdgeInsets)
         }
     }
@@ -76,6 +72,6 @@ class YKChatTextMessageCell: YKChatMessageTableViewCell {
     //MARK: - protocol
    override  func classMediaType() -> AVIMMessageMediaType {
         
-        return kAVIMMessageMediaTypeText
+        return .text
     }
 }

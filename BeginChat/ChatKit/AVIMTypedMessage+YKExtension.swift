@@ -17,7 +17,7 @@ extension AVIMTypedMessage {
         var avimTypedMessage:AVIMTypedMessage?
         
         switch message.mediaType! {
-        case kAVIMMessageMediaTypeText:
+        case .text:
            avimTypedMessage = AVIMTextMessage.init(text: message.text!, attributes: nil)
             
         default:

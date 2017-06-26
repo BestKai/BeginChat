@@ -184,8 +184,7 @@ class YKRegisterViewController: UIViewController,UITextFieldDelegate {
 
         weak var weakSelf = self
         
-        SMSSDK.commitVerificationCode(codeTextField?.text, phoneNumber: phoneNumber, zone: "86") { (userInfo, error) in
-            
+        SMSSDK.commitVerificationCode(codeTextField?.text, phoneNumber: phoneNumber, zone: "86") { (error) in
             if error != nil {
                 let user = AVUser.init()
                 

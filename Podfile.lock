@@ -1,21 +1,21 @@
 PODS:
   - Alamofire (4.4.0)
-  - AVOSCloud (4.2.0)
-  - AVOSCloudIM (4.2.0):
-    - AVOSCloud (= 4.2.0)
-    - AVOSCloudIM/_ARC (= 4.2.0)
-    - AVOSCloudIM/_NOARC (= 4.2.0)
-  - AVOSCloudIM/_ARC (4.2.0):
-    - AVOSCloud (= 4.2.0)
-    - AVOSCloudIM/_NOARC (= 4.2.0)
-  - AVOSCloudIM/_NOARC (4.2.0):
-    - AVOSCloud (= 4.2.0)
-  - IQKeyboardManager (4.0.9)
+  - AVOSCloud (5.0.2)
+  - AVOSCloudIM (5.0.2):
+    - AVOSCloud (= 5.0.2)
+    - AVOSCloudIM/_ARC (= 5.0.2)
+    - AVOSCloudIM/_NOARC (= 5.0.2)
+  - AVOSCloudIM/_ARC (5.0.2):
+    - AVOSCloud (= 5.0.2)
+    - AVOSCloudIM/_NOARC (= 5.0.2)
+  - AVOSCloudIM/_NOARC (5.0.2):
+    - AVOSCloud (= 5.0.2)
+  - IQKeyboardManager (4.0.10)
   - Kingfisher (3.10.1)
   - MBProgressHUD (1.0.0)
-  - MOBFoundation_IDFA (2.2.17)
-  - SMSSDK (2.1.5):
-    - MOBFoundation_IDFA
+  - MOBFoundation (3.0.0)
+  - SMSSDK (3.0.0):
+    - MOBFoundation
   - SnapKit (3.2.0)
   - SQLite.swift (0.11.3):
     - SQLite.swift/standard (= 0.11.3)
@@ -27,7 +27,6 @@ DEPENDENCIES:
   - IQKeyboardManager
   - Kingfisher (from `https://github.com/onevcat/Kingfisher.git`, branch `swift4`)
   - MBProgressHUD
-  - MOBFoundation_IDFA
   - SMSSDK
   - SnapKit (from `https://github.com/SnapKit/SnapKit.git`, branch `swift-4`)
   - SQLite.swift (from `https://github.com/thebluepotato/SQLite.swift.git`, branch `swift-4`)
@@ -51,7 +50,7 @@ CHECKOUT OPTIONS:
     :commit: 9d6d16316edfb8ece47abebe1621d05ee6b0e6ed
     :git: https://github.com/Alamofire/Alamofire.git
   Kingfisher:
-    :commit: 54087b54da5cf405659769caee26aa304c18f4a1
+    :commit: 41554ac27ffd5c65870b182d7c6a46f3057972a0
     :git: https://github.com/onevcat/Kingfisher.git
   SnapKit:
     :commit: d31148f449abe819fd1a58d5e07e94874c7e6003
@@ -62,16 +61,16 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 4c2bf7fa03c4a626163606de0a417568c270575e
-  AVOSCloud: 5446ad0320f4942cce1a036d131992cd1115db99
-  AVOSCloudIM: 69df8e8517247f3c2585e321f24e777d5b398843
-  IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
+  AVOSCloud: 01745f438fb9ef4f2cde2b992783a869cc1291e6
+  AVOSCloudIM: 8241151bf43f58ea08eeab976eedc3810a45efd5
+  IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
   Kingfisher: 5225d74cc1575305780bfe579836bd525585ce5c
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  MOBFoundation_IDFA: ce39a93c7163b2877615d3a6acd1276a6a0132e6
-  SMSSDK: 7d19654f9d36392988e96bf697afdac983808b1a
+  MOBFoundation: e6572a62983a44fa048c4038842ade1494c10059
+  SMSSDK: e4706231a3e6aa5620ec8a2d3fdc4d16870f746e
   SnapKit: c71c530b73cedd2a8b998098687001baff265086
   SQLite.swift: f5e183af7f267169a3e71cefc7c0a72e687c52a7
 
-PODFILE CHECKSUM: 3872d7dd02a5e68dc45e17662c9bf2c7bb1ccd3b
+PODFILE CHECKSUM: b28dae5883fa332f120287fca5bfc13ca64be8ee
 
 COCOAPODS: 1.2.0

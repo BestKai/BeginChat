@@ -38,6 +38,16 @@ class YKConversationListService: NSObject {
     }
     
     
+    func fetchConversationById(conversationId:String,closuer:@escaping AVIMConversationResultBlock)  {
+        
+        let client = YKSessionService.defaultService().client
+        
+        let conversationQuery = client?.conversationQuery()
+        
+     conversationQuery?.option = .withMessage
+ conversationQuery?.getConversationById(conversationId, callback: closuer)
+    }
+    
     
     
 }

@@ -99,7 +99,7 @@ class YKSessionService: NSObject,AVIMClientDelegate {
     
     func recivedMessage(message:AVIMTypedMessage, conversation:AVIMConversation) {
         
-        if message.mediaType > 0 {
+        if message.mediaType.rawValue > 0 {
 //            let userInfo = [YKMessageNotificationUserInfoConversationKey:conversation,yk]
             
         }
