@@ -7,10 +7,12 @@
 //
 
 import Foundation
-
+import UIKit
 @objc protocol YKChatBarDelegate {
     
    @objc optional func chatBarSendMessage(chatbar:YKChatBar, message:String) -> ()
     
    @objc optional func chatBarFrameDidChangeShouldScrollToBottom(chatbar:YKChatBar, shouldScrollToBottom:Bool) -> ()
+    
+    @objc optional func chatBarSendImageMessage(imageMessage:UIImage?)
 }

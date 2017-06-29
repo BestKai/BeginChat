@@ -13,10 +13,8 @@ import AVOSCloudIM
 //    static func classMediaType() -> AVIMMessageMediaType
 //}
 
-//extension YKChatMessageTableViewCell {
+//protocol YKChatMessageTableViewCell {
+//    
 //
-//    static func classMediaType() -> AVIMMessageMediaType{
-//        return kAVIMMessageMediaTypeNone
-//    }
 //}
 

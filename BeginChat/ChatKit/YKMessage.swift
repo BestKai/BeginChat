@@ -97,8 +97,18 @@ class YKBaseMessage {
 class YKMessage: YKBaseMessage {
     
     var serverMessageId: String?
-    
+    //文本消息
     var text: String?
+    
+    //图片消息
+    var originPhoto:UIImage?
+    var thumbnailPhoto:UIImage?
+    var photoPath:String?
+    var thumbnailUrl:URL?
+    var originPhotoUrl:URL?
+    var imageWidth:CGFloat = 0.0
+    var imageHeight:CGFloat = 0.0
+    
     
     var mediaType:AVIMMessageMediaType?
     
@@ -140,6 +150,27 @@ class YKMessage: YKBaseMessage {
         return message
     }
     
+    init(originImage:UIImage?,thumbnilImage:UIImage?,thumbnailSize:CGSize?,thumbnailUrl:URL?,originUrl:URL?,sender:YKUser?, timestamp:TimeInterval, serverMessageId:String?, chatType:YKConversationType)
+    {
+        super.init()
+        self.originPhoto = originImage
+        self.thumbnailPhoto = thumbnilImage
+        self.thumbnailUrl = thumbnailUrl
+        self.originPhotoUrl = originUrl
+        self.sender = sender
+        self.timestamp = timestamp
+        self.serverMessageId = serverMessageId
+        self.mediaType = AVIMMessageMediaType.image
+        
+        if (thumbnailSize?.height)! > YK_MSG_CELL_MAXIMAGE_HEIGHT {
+            self.imageHeight = YK_MSG_CELL_MAXIMAGE_HEIGHT
+//            self.imageWidth = YK_MSG_CELL_MAXIMAGE_HEIGHT*(thumbnailSize?.width/thumbnailSize?.height)
+        }else{
+            self.imageHeight = (thumbnailSize?.height)!
+        }
+        
+        self.chatCellHeight()
+    }
     
     
     class func messageWithAVIMTypedMessage(message:AVIMTypedMessage) -> YKMessage? {
@@ -152,6 +183,13 @@ class YKMessage: YKBaseMessage {
             
             let textMsg = message as! AVIMTextMessage
             ykMessage = YKMessage.init(text: textMsg.text!, sender: nil, timestamp: TimeInterval(textMsg.sendTimestamp), serverMessageId: textMsg.messageId, chatType: .Single)
+            
+        case.image:
+            let imageMsg = message as! AVIMImageMessage
+            let imageSize = CGSize.init(width: CGFloat(imageMsg.width), height: CGFloat(imageMsg.height))
+            
+            ykMessage = YKMessage.init(originImage: nil, thumbnilImage: nil,thumbnailSize:imageSize, thumbnailUrl: nil, originUrl: URL.init(string: (imageMsg.file?.url)!), sender: nil, timestamp: TimeInterval(imageMsg.sendTimestamp), serverMessageId: imageMsg.messageId, chatType: .Single)
+            
         default: break
             
         }
@@ -175,6 +213,10 @@ extension YKMessage {
         
         var textHeight = self.text?.height(fontSize: Float(YK_MSG_CELL_TEXT_FONTSIZE),maxWidth:Float(YK_MSG_CELL_MAX_TEXT_WIDTH))
         
+        if textHeight == nil {
+            textHeight = 0.0
+        }
+        
         let showName = self.ownerType == YKMessageOwnerType.ByOther && self.chatType == YKConversationType.Group
         
         switch self.mediaType! {
@@ -185,7 +227,14 @@ extension YKMessage {
             }
             
             self.cellHeight = CGFloat(textHeight!) + (YK_MSG_CELL_TEXT_CONTENT_INSET * 2) + CGFloat(YK_MSG_CELL_CONTENT_BOTTOM_MARGIN)
-        
+        case .image:
+            
+            if showName {
+                textHeight! += (YK_MSG_CELL_NAME_FONTSIZE + 4.0)
+            }
+            
+            self.cellHeight = CGFloat(textHeight!) + self.imageHeight + CGFloat(YK_MSG_CELL_CONTENT_BOTTOM_MARGIN)
+            
         case kAVIMMessageMediaTypeSystem:
             
             self.cellHeight = CGFloat(YK_MSG_CELL_TIME_HEIGHT + YK_MSG_CELL_CONTENT_BOTTOM_MARGIN + YK_MSG_CELL_TIME_TOP_MARGIN)

@@ -19,7 +19,11 @@ extension AVIMTypedMessage {
         switch message.mediaType! {
         case .text:
            avimTypedMessage = AVIMTextMessage.init(text: message.text!, attributes: nil)
+        case .image:
             
+            let imagefile = AVFile.init(data: UIImageJPEGRepresentation(message.originPhoto!, 0.6)!)
+            
+            avimTypedMessage = AVIMImageMessage.init(text: nil, file:imagefile , attributes: nil)
         default:
             break
         }

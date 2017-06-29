@@ -45,6 +45,7 @@ class YKChatBar: UIView,UITextViewDelegate {
     var keyBoardHeight: CGFloat = 0.0
     weak var delegate:YKChatBarDelegate?
     var oldTextViewHeight = YKChatBarTextViewMinHeight
+    var parentViewController:UIViewController?
     
     
     
@@ -125,6 +126,9 @@ class YKChatBar: UIView,UITextViewDelegate {
     lazy var moreView: YKChatMoreView = {
         let moreView = YKChatMoreView.init(frame: CGRect.zero)
         moreView.isHidden = true
+        moreView.moreTitleImages = ["照片","拍摄","123","123","123","123","123","123","123","123","123","123","123"]
+        moreView.parentViewController = self.parentViewController
+        moreView.chatBar = self
         return moreView
     }()
     
@@ -137,8 +141,9 @@ class YKChatBar: UIView,UITextViewDelegate {
     }
     */
     
-    override init(frame: CGRect) {
+    init(frame: CGRect,parentViewController:UIViewController?) {
         super.init(frame: frame)
+        self.parentViewController = parentViewController
         self.setUpUI()
     }
     

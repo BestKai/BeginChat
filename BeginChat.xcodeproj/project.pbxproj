@@ -124,6 +124,8 @@
 		E25457451EB98A61008141B0 /* YKChatProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25457441EB98A61008141B0 /* YKChatProtocol.swift */; };
 		E25792EF1EFA0F5C00C07065 /* YKConversationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25792EE1EFA0F5C00C07065 /* YKConversationListCell.swift */; };
 		E25792F31EFA16C900C07065 /* UITableViewCell+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25792F21EFA16C900C07065 /* UITableViewCell+YKExtension.swift */; };
+		E29B96741F01F78B003E6D0A /* YKChatImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29B96731F01F78B003E6D0A /* YKChatImageMessageCell.swift */; };
+		E29B96761F034EC2003E6D0A /* UIImage+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29B96751F034EC2003E6D0A /* UIImage+YKExtension.swift */; };
 		E2A6165E1EFA665B0020D565 /* UIColor+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6165D1EFA665B0020D565 /* UIColor+YKExtension.swift */; };
 		E2B327F21EAE02570079222F /* NSString+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B327F11EAE02570079222F /* NSString+YKExtension.swift */; };
 		E2B5E9F11EFCB53000F63951 /* YKMineSimpleInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B5E9F01EFCB53000F63951 /* YKMineSimpleInfoTableViewCell.swift */; };
@@ -261,6 +263,8 @@
 		E25457441EB98A61008141B0 /* YKChatProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKChatProtocol.swift; sourceTree = "<group>"; };
 		E25792EE1EFA0F5C00C07065 /* YKConversationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKConversationListCell.swift; sourceTree = "<group>"; };
 		E25792F21EFA16C900C07065 /* UITableViewCell+YKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+YKExtension.swift"; sourceTree = "<group>"; };
+		E29B96731F01F78B003E6D0A /* YKChatImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKChatImageMessageCell.swift; sourceTree = "<group>"; };
+		E29B96751F034EC2003E6D0A /* UIImage+YKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+YKExtension.swift"; sourceTree = "<group>"; };
 		E2A6165D1EFA665B0020D565 /* UIColor+YKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+YKExtension.swift"; sourceTree = "<group>"; };
 		E2B327F11EAE02570079222F /* NSString+YKExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+YKExtension.swift"; sourceTree = "<group>"; };
 		E2B327F31EAED0050079222F /* BeginChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeginChat.entitlements; sourceTree = "<group>"; };
@@ -429,6 +433,7 @@
 			children = (
 				E20AEC6B1EB180F80022A053 /* YKChatMessageTableViewCell.swift */,
 				E20AEC701EB1C3690022A053 /* YKChatTextMessageCell.swift */,
+				E29B96731F01F78B003E6D0A /* YKChatImageMessageCell.swift */,
 				E25456F51EB87D9B008141B0 /* YKChatSystemMessageCell.swift */,
 			);
 			path = MessageCell;
@@ -623,6 +628,7 @@
 				E21442991EE153630033CE17 /* Dictionary+YKExtension.swift */,
 				E25792F21EFA16C900C07065 /* UITableViewCell+YKExtension.swift */,
 				E2A6165D1EFA665B0020D565 /* UIColor+YKExtension.swift */,
+				E29B96751F034EC2003E6D0A /* UIImage+YKExtension.swift */,
 				E20AEC3B1EAEEDD50022A053 /* YKProgressView.swift */,
 				E25456F31EB835F9008141B0 /* YKDefine.swift */,
 			);
@@ -888,9 +894,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E29B96761F034EC2003E6D0A /* UIImage+YKExtension.swift in Sources */,
 				E20AEC481EAEFB070022A053 /* YKChatListViewController.swift in Sources */,
 				E2B66E9E1EF4CE67006C8D53 /* YKBeginChatTool.swift in Sources */,
 				E245099D1EDFBB9900363A0E /* YKChatBarHelper.swift in Sources */,
+				E29B96741F01F78B003E6D0A /* YKChatImageMessageCell.swift in Sources */,
 				E2A6165E1EFA665B0020D565 /* UIColor+YKExtension.swift in Sources */,
 				E2F07A821EAA093800ECFA13 /* ViewController.swift in Sources */,
 				E20AEC3A1EAEDE2D0022A053 /* UIButton+YKExtension.swift in Sources */,

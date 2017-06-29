@@ -63,7 +63,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
 
         
         
-        chatBar = YKChatBar.init(frame: CGRect.zero)
+        chatBar = YKChatBar.init(frame: CGRect.zero, parentViewController: self)
         chatBar?.delegate = self
         self.view.addSubview(chatBar!)
         self.tableView?.snp.makeConstraints({ (make) in
@@ -78,7 +78,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
             make.height.equalTo(YKChatBarMinHeight)
         })
         
-        YKMessageCellIdentifyFactory.registerChatMessageCellMediaTypeDict(cellClassNames: [[-1:"YKChatTextMessageCell"],[-7:"YKChatSystemMessageCell"]])
+        YKMessageCellIdentifyFactory.registerChatMessageCellMediaTypeDict(cellClassNames: [[-1:"YKChatTextMessageCell"],[-7:"YKChatSystemMessageCell"],[-2:"YKChatImageMessageCell"]])
         
         
         YKMessageCellIdentifyFactory.registerChatMessageCellClassForTableView(tableView: self.tableView!)
@@ -171,6 +171,18 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     func chatBarSendMessage(chatbar: YKChatBar, message: String) {
         
         self.sendTextMessage(message)
+    }
+    
+    func chatBarSendImageMessage(imageMessage: UIImage?) {
+        
+        if imageMessage != nil {
+            
+            let thumbImage = imageMessage?.imageByResizeToSize(size: CGSize.init(width: 200, height: 200))
+            
+            let message = YKMessage.init(originImage: imageMessage, thumbnilImage:thumbImage,thumbnailSize:thumbImage?.size, thumbnailUrl: nil, originUrl: nil, sender: nil, timestamp: YK_CURRENT_TIMESTAMP, serverMessageId: nil, chatType: .Single)
+            
+            self.chatViewModel.sendMessage(message: message)
+        }
     }
     
     
