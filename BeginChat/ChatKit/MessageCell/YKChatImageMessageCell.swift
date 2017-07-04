@@ -30,8 +30,8 @@ class YKChatImageMessageCell: YKChatMessageTableViewCell {
     
     override func setUpUI() {
         super.setUpUI()
-        self.addGeneralView()
         self.messageContentView.addSubview(self.messageImageView)
+        self.addGeneralView()
     }
     
     override func updateConstraints() {
@@ -41,15 +41,15 @@ class YKChatImageMessageCell: YKChatMessageTableViewCell {
         
         if self.message?.ownerType == YKMessageOwnerType.BySelf {
             
-            textMessageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, CGFloat(8 + YK_MSG_CELL_BUBBLE_WIDTH))
+            textMessageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
             
         }else if self.message?.ownerType == YKMessageOwnerType.ByOther {
             
-            textMessageEdgeInsets = UIEdgeInsetsMake(YK_MSG_CELL_TEXT_CONTENT_INSET, CGFloat(8 + YK_MSG_CELL_BUBBLE_WIDTH), YK_MSG_CELL_TEXT_CONTENT_INSET, 8)
+            textMessageEdgeInsets = UIEdgeInsetsMake(0,0, 0, 0)
         }
         
         self.messageImageView.snp.makeConstraints { (make) in
-            make.edges.equalTo(textMessageEdgeInsets)
+            make.edges.equalTo(self.messageContentView).inset(textMessageEdgeInsets)
             
             make.height.lessThanOrEqualTo(200)
         }
@@ -92,13 +92,15 @@ class YKChatImageMessageCell: YKChatMessageTableViewCell {
             
             if self.message?.originPhotoUrl != nil {
                 
-                self.messageImageView.kf.setImage(with: self.message?.originPhotoUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, imageUrl) in
+                self.messageImageView.kf.setImage(with: self.message?.originPhotoUrl, placeholder: UIImage.init(named: "Placeholder_Image"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, imageUrl) in
                     
                     DispatchQueue.main.async {
                         if image != nil {
                             self.message?.originPhoto = image
                             
                             self.message?.thumbnailPhoto = image?.imageByResizeToSize(size: CGSize.init(width: 200, height: 200))
+                            
+                            self.messageImageView.image = self.message?.thumbnailPhoto
                         }
                     }
                 })

@@ -33,6 +33,9 @@ class YKSessionService: NSObject,AVIMClientDelegate {
     
     
     func openWithClientId(clientId:String,force:Bool,callback:YKBooleanResultClosure?) {
+        
+        AVIMClient.setUserOptions([AVIMUserOptionUseUnread:true])
+        
         self.openService()
         
         self.clientId = clientId

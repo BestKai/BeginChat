@@ -376,7 +376,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
             //在会话中
             self.chatViewModel.loadMessagesFirstTimeWithCallback(callback: { (succeeded, error) in
                 self.tableView?.reloadData()
-                self.scrollToBottomAnimated(animated: true)
+                self.scrollToBottomAnimated(animated: false)
             })
         }else{
 //            chatViewModel.

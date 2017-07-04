@@ -21,6 +21,7 @@ class YKConversationListCell: UITableViewCell {
     
     lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView.init()
+        avatarImageView.layer.masksToBounds = true
         return avatarImageView
     }()
     
@@ -44,6 +45,11 @@ class YKConversationListCell: UITableViewCell {
         timeLabel.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: UILayoutConstraintAxis.horizontal)
         timeLabel.textColor = UIColor.colorWithRGBValue(rgbValue: 0xb2b2b2)
         return timeLabel
+    }()
+    
+    lazy var badgeView: YKBadgeView = {
+        let badgeView = YKBadgeView.init(relativeView: self.avatarImageView, alignment: .topRight)
+        return badgeView
     }()
     
     override func awakeFromNib() {
@@ -121,11 +127,13 @@ class YKConversationListCell: UITableViewCell {
             message = "未知消息类型"
         }
         self.messageLabel.text = message
-        
+           
         let dateFormate = DateFormatter.init()
         dateFormate.dateFormat = "YYYY/MM/dd"
         
         self.timeLabel.text = dateFormate.string(from: (conversation?.updateAt)!)
+        
+        self.badgeView.badgeText = String.init(format: "%d",(conversation?.unreadMessagesCount)!)
     }
     
     

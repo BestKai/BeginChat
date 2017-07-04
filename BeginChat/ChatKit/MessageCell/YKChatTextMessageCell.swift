@@ -33,9 +33,8 @@ class YKChatTextMessageCell: YKChatMessageTableViewCell {
     override func setUpUI() {
         super.setUpUI()
         
-        self.addGeneralView()
-        
         self.messageContentView.addSubview(self.messageTextLabel)
+        self.addGeneralView()
     }
     
     
@@ -64,8 +63,6 @@ class YKChatTextMessageCell: YKChatMessageTableViewCell {
         super.configureCellWithData(message: message)
         
         self.messageTextLabel.text = self.message?.text
-        
-        self.updateConstraintsIfNeeded()
     }
     
 

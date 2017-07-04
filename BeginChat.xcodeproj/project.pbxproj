@@ -31,6 +31,9 @@
 		E21442951EE113A50033CE17 /* YKConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21442941EE113A50033CE17 /* YKConversationViewModel.swift */; };
 		E21442981EE141E90033CE17 /* YKConversationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21442971EE141E90033CE17 /* YKConversationService.swift */; };
 		E214429A1EE153630033CE17 /* Dictionary+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21442991EE153630033CE17 /* Dictionary+YKExtension.swift */; };
+		E22039DD1F0A138D0090953E /* Placeholder_Image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E22039DB1F0A138D0090953E /* Placeholder_Image@2x.png */; };
+		E22039DE1F0A138D0090953E /* Placeholder_Accept_Defeat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E22039DC1F0A138D0090953E /* Placeholder_Accept_Defeat@2x.png */; };
+		E22039E11F0A1A6F0090953E /* YKBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22039E01F0A1A6F0090953E /* YKBadgeView.swift */; };
 		E22579AC1EEE260B00432490 /* YKChatConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22579AB1EEE260B00432490 /* YKChatConstant.swift */; };
 		E23CF0451EBC097300F52BC0 /* chat_bar_emoji_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23CF0171EBC097300F52BC0 /* chat_bar_emoji_highlight@2x.png */; };
 		E23CF0461EBC097300F52BC0 /* chat_bar_emoji_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23CF0181EBC097300F52BC0 /* chat_bar_emoji_normal@2x.png */; };
@@ -170,6 +173,9 @@
 		E21442941EE113A50033CE17 /* YKConversationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKConversationViewModel.swift; sourceTree = "<group>"; };
 		E21442971EE141E90033CE17 /* YKConversationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKConversationService.swift; sourceTree = "<group>"; };
 		E21442991EE153630033CE17 /* Dictionary+YKExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+YKExtension.swift"; sourceTree = "<group>"; };
+		E22039DB1F0A138D0090953E /* Placeholder_Image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Placeholder_Image@2x.png"; path = "../../../../../../../Downloads/ChatKit-OC-master-2/ChatKit/Class/Resources/Placeholder.bundle/Placeholder_Image@2x.png"; sourceTree = "<group>"; };
+		E22039DC1F0A138D0090953E /* Placeholder_Accept_Defeat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Placeholder_Accept_Defeat@2x.png"; path = "../../../../../../../Downloads/ChatKit-OC-master-2/ChatKit/Class/Resources/Placeholder.bundle/Placeholder_Accept_Defeat@2x.png"; sourceTree = "<group>"; };
+		E22039E01F0A1A6F0090953E /* YKBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKBadgeView.swift; sourceTree = "<group>"; };
 		E22579AB1EEE260B00432490 /* YKChatConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKChatConstant.swift; sourceTree = "<group>"; };
 		E23CF0171EBC097300F52BC0 /* chat_bar_emoji_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bar_emoji_highlight@2x.png"; sourceTree = "<group>"; };
 		E23CF0181EBC097300F52BC0 /* chat_bar_emoji_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bar_emoji_normal@2x.png"; sourceTree = "<group>"; };
@@ -410,6 +416,7 @@
 		E20AEC601EB06F980022A053 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E22039DF1F0A1A4F0090953E /* OtherView */,
 				E20AEC671EB0763C0022A053 /* MessageCell */,
 				E20AEC611EB06FA70022A053 /* ChatBar */,
 			);
@@ -469,6 +476,23 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		E22039DA1F0A13630090953E /* Placeholder */ = {
+			isa = PBXGroup;
+			children = (
+				E22039DC1F0A138D0090953E /* Placeholder_Accept_Defeat@2x.png */,
+				E22039DB1F0A138D0090953E /* Placeholder_Image@2x.png */,
+			);
+			path = Placeholder;
+			sourceTree = "<group>";
+		};
+		E22039DF1F0A1A4F0090953E /* OtherView */ = {
+			isa = PBXGroup;
+			children = (
+				E22039E01F0A1A6F0090953E /* YKBadgeView.swift */,
+			);
+			name = OtherView;
+			sourceTree = "<group>";
+		};
 		E23CF0161EBC08EE00F52BC0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +549,7 @@
 		E25456F71EB970CE008141B0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E22039DA1F0A13630090953E /* Placeholder */,
 				E25456F81EB98047008141B0 /* message_hollow_receiver_background_highlight@2x.png */,
 				E25456F91EB98047008141B0 /* message_hollow_receiver_background_highlight@3x.png */,
 				E25456FA1EB98047008141B0 /* message_hollow_receiver_background_normal@2x.png */,
@@ -752,6 +777,7 @@
 				E25457341EB98047008141B0 /* ReceiverVoiceNodePlaying000@2x.png in Resources */,
 				E23CF06B1EBC097300F52BC0 /* TypeSelectorBtn_Black@2x.png in Resources */,
 				E25457281EB98047008141B0 /* message_receiver_background_normal@2x.png in Resources */,
+				E22039DE1F0A138D0090953E /* Placeholder_Accept_Defeat@2x.png in Resources */,
 				E23CF06F1EBC097300F52BC0 /* VoiceBtn_Black@2x.png in Resources */,
 				E254573B1EB98047008141B0 /* RecordingSignal005@2x.png in Resources */,
 				E23CF06D1EBC097300F52BC0 /* TypeSelectorBtnHL_Black@2x.png in Resources */,
@@ -771,6 +797,7 @@
 				E254573A1EB98047008141B0 /* RecordingSignal004@2x.png in Resources */,
 				E254571E1EB98047008141B0 /* message_hollow_receiver_background_highlight@2x.png in Resources */,
 				E23CF0581EBC097300F52BC0 /* sharemore_pic@2x.png in Resources */,
+				E22039DD1F0A138D0090953E /* Placeholder_Image@2x.png in Resources */,
 				E2F07A871EAA093800ECFA13 /* Assets.xcassets in Resources */,
 				E25457351EB98047008141B0 /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
 				E23CF0461EBC097300F52BC0 /* chat_bar_emoji_normal@2x.png in Resources */,
@@ -904,6 +931,7 @@
 				E20AEC3A1EAEDE2D0022A053 /* UIButton+YKExtension.swift in Sources */,
 				E20AEC631EB06FCD0022A053 /* YKChatBar.swift in Sources */,
 				E2FC561C1EE79D3700280714 /* AVIMTypedMessage+YKExtension.swift in Sources */,
+				E22039E11F0A1A6F0090953E /* YKBadgeView.swift in Sources */,
 				E20AEC6F1EB19E110022A053 /* YKConversationHelper.swift in Sources */,
 				E20AEC4C1EAEFB5C0022A053 /* YKHotUserViewController.swift in Sources */,
 				E25456F61EB87D9B008141B0 /* YKChatSystemMessageCell.swift in Sources */,

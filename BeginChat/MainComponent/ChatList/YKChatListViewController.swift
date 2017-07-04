@@ -42,7 +42,7 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         self.loadConversationData(isrefresh: false)
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshConversationList), name: NSNotification.Name(rawValue: YKNotificationMessageReceived), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveMessage(notification:)), name: NSNotification.Name(rawValue: YKNotificationMessageReceived), object: nil)
     }
     
     func setUpConstraint() {
@@ -66,8 +66,36 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
-    @objc func refreshConversationList() {
+    @objc func receiveMessage(notification:Notification) {
         
+        let userInfo:[String:Any] = notification.object as! [String : Any]
+        
+        let conversation:AVIMConversation = userInfo[YKMessageNotificationUserInfoConversationKey] as! AVIMConversation
+        
+        DispatchQueue.global().async {
+            
+            var hasCon = false
+            for (index,temConver) in self.dataSources.enumerated() {
+                let aaa = temConver as! AVIMConversation
+                if aaa.conversationId == conversation.conversationId {
+                    self.dataSources[index] = conversation
+                    hasCon = true
+                    break
+                }
+            }
+            
+            if !hasCon {
+                if self.dataSources.count > 0{
+                    self.dataSources.insert(conversation, at: 0)
+                }else{
+                    self.dataSources.append(conversation)
+                }
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.tableView.reloadData()
+            })
+        }
     }
     
     

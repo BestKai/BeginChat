@@ -36,7 +36,7 @@ class YKMainTabViewController: UITabBarController {
         mineNav.title = "我"
         
         self.viewControllers = [chatListNav,hotUserNav,mineNav]
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor.rawValue:UIColor.black], for: UIControlState.selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue):UIColor.black], for: UIControlState.selected)
     }
 
     

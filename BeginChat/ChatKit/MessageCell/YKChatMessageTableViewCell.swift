@@ -45,6 +45,29 @@ let YK_MSG_CELL_MAX_TEXT_WIDTH = ScreenWidth - 2 * (CGFloat(YK_MSG_CELL_AVATAR_W
 class YKMessageContentView: UIView {
     init() {
         super.init(frame: CGRect.zero)
+        
+        /*
+         实现图片的裁剪
+         */
+        let maskLayer = CAShapeLayer.init()
+        maskLayer.fillColor = UIColor.gray.cgColor
+        maskLayer.contentsCenter = CGRect.init(x: 0.7, y: 0.7, width: 0.1, height: 0.1)
+        maskLayer.contentsScale = UIScreen.main.scale
+        self.layer.mask = maskLayer
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.mask?.frame = self.bounds.insetBy(dx: 0, dy: 0)
+    }
+    
+    override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        self.layer.mask?.frame = self.bounds.insetBy(dx: 0, dy: 0)
+        CATransaction.commit()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -226,13 +249,14 @@ class YKChatMessageTableViewCell: UITableViewCell {
     func addGeneralView() {
         self.addSubview(self.nickNameLabel)
         self.addSubview(self.avatarImageView)
-        self.addSubview(self.messageContentBackgroundImageView)
         self.addSubview(self.messageContentView)
-
+        
         self.messageContentBackgroundImageView.image = YKMessageCellBubbleImageFactory.bubbleImageViewWith(owner:self.messageOwner,messageType:self.mediaType!,isHighlighted:false)
         
         self.messageContentBackgroundImageView.highlightedImage = YKMessageCellBubbleImageFactory.bubbleImageViewWith(owner:self.messageOwner,messageType:self.mediaType!,isHighlighted:true)
-
+        
+        self.messageContentView.layer.mask?.contents = self.messageContentBackgroundImageView.image?.cgImage
+        self.insertSubview(self.messageContentBackgroundImageView, belowSubview: self.messageContentView)
     }
 
     

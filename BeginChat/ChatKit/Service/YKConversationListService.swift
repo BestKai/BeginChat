@@ -21,6 +21,11 @@ class YKConversationListService: NSObject {
         return Static.defaultService
     }
     
+    //MARK: - ****** Parmeters ******
+    var allRecentConversations:Array<AVIMConversation>?
+    
+    
+    
     func fetchRelationConversationFromServer(isRefresh:Bool, callback:@escaping AVIMArrayResultBlock) {
         
         let client = YKSessionService.defaultService().client
@@ -34,7 +39,10 @@ class YKConversationListService: NSObject {
             conversationQuery?.cachePolicy = .cacheThenNetwork
         }
         conversationQuery?.option = .withMessage
-     conversationQuery?.findConversations(callback: callback)
+        conversationQuery?.findConversations(callback: { (array, error) in
+            self.allRecentConversations = array as? Array<AVIMConversation>
+            callback(array,error)
+        })
     }
     
     
@@ -48,6 +56,16 @@ class YKConversationListService: NSObject {
  conversationQuery?.getConversationById(conversationId, callback: closuer)
     }
     
-    
+    func fetchConversationWithConversationIds(conversationIds:Array<String>,closuer:@escaping AVIMArrayResultBlock) {
+        let client = YKSessionService.defaultService().client
+        
+        let conversationQuery = client?.conversationQuery()
+        
+        conversationQuery?.whereKey("objectId", containedIn: conversationIds)
+        conversationQuery?.limit = conversationIds.count
+        conversationQuery?.option = .withMessage
+        conversationQuery?.cachePolicy = .ignoreCache
+        conversationQuery?.findConversations(callback: closuer)
+    }
     
 }

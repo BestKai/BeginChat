@@ -86,8 +86,9 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                 print("出错了",error as Any)
             }else{
                 print("授权成功")
-                
-                UIApplication.shared.registerForRemoteNotifications()//不加不会执行didRegisterForRemoteNotificationsWithDeviceToken方法
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.registerForRemoteNotifications()//不加不会执行didRegisterForRemoteNotificationsWithDeviceToken方法
+                })
             }
         }
         
