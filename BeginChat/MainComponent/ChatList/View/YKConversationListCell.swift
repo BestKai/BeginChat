@@ -127,7 +127,7 @@ class YKConversationListCell: UITableViewCell {
             message = "未知消息类型"
         }
         self.messageLabel.text = message
-           
+        
         let dateFormate = DateFormatter.init()
         dateFormate.dateFormat = "YYYY/MM/dd"
         

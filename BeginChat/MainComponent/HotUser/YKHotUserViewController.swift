@@ -55,20 +55,10 @@ class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     func getDataSources() {
-        let query = AVQuery.init(className: "_User")
         
-        query.whereKey("objectId", notEqualTo: (AVUser.current()?.objectId)!)
-        
-        query.findObjectsInBackground { (objects, error) in
-            
-            self.dataSources = [YKUser]()
-            
-            for (_,avuser) in (objects?.enumerated())! {
-                self.dataSources.append(YKUser.init(user: avuser as! AVUser))
-            }
-            
+        YKContactsService.defaultService().fetchContacts { (objects, error) in
+            self.dataSources = objects as! [YKUser]
             self.tableView.reloadData()
-            
             self.refreshControl?.endRefreshing()
         }
     }

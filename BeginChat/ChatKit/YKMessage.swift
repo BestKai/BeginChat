@@ -65,6 +65,10 @@ class YKUser {
         return Static.currentUser
     }
     
+    init() {
+        
+    }
+    
     init(user:AVUser?) {
         self.userId = user?.objectId
         self.name = user?.username
@@ -186,9 +190,16 @@ class YKMessage: YKBaseMessage {
             
         case.image:
             let imageMsg = message as! AVIMImageMessage
-            let imageSize = CGSize.init(width: CGFloat(imageMsg.width), height: CGFloat(imageMsg.height))
             
-            ykMessage = YKMessage.init(originImage: nil, thumbnilImage: nil,thumbnailSize:imageSize, thumbnailUrl: nil, originUrl: URL.init(string: (imageMsg.file?.url)!), sender: nil, timestamp: TimeInterval(imageMsg.sendTimestamp), serverMessageId: imageMsg.messageId, chatType: .Single)
+            let minWidth = min(imageMsg.width, 200)
+            
+            let minHeight = min(Double(minWidth)*(Double(imageMsg.height)/Double(imageMsg.width) ), 200)
+            
+            let imageSize = CGSize.init(width: CGFloat(minWidth), height: CGFloat(minHeight))
+            
+            let thumbnailUrl = imageMsg.file?.url?.appending("?imageView2/2/w/200/h/200")
+            
+            ykMessage = YKMessage.init(originImage: nil, thumbnilImage: nil,thumbnailSize:imageSize, thumbnailUrl: URL.init(string: thumbnailUrl ?? ""), originUrl: URL.init(string: (imageMsg.file?.url)!), sender: nil, timestamp: TimeInterval(imageMsg.sendTimestamp), serverMessageId: imageMsg.messageId, chatType: .Single)
             
         default: break
             

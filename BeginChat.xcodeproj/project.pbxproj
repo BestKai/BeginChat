@@ -28,6 +28,7 @@
 		E20AEC6F1EB19E110022A053 /* YKConversationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20AEC6E1EB19E110022A053 /* YKConversationHelper.swift */; };
 		E20AEC711EB1C3690022A053 /* YKChatTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20AEC701EB1C3690022A053 /* YKChatTextMessageCell.swift */; };
 		E20AEC731EB2EEA60022A053 /* NSObject+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20AEC721EB2EEA50022A053 /* NSObject+YKExtension.swift */; };
+		E20ECAE61F0DC5CD00521B3B /* YKContactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20ECAE51F0DC5CC00521B3B /* YKContactsService.swift */; };
 		E21442951EE113A50033CE17 /* YKConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21442941EE113A50033CE17 /* YKConversationViewModel.swift */; };
 		E21442981EE141E90033CE17 /* YKConversationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21442971EE141E90033CE17 /* YKConversationService.swift */; };
 		E214429A1EE153630033CE17 /* Dictionary+YKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21442991EE153630033CE17 /* Dictionary+YKExtension.swift */; };
@@ -170,6 +171,7 @@
 		E20AEC6E1EB19E110022A053 /* YKConversationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKConversationHelper.swift; sourceTree = "<group>"; };
 		E20AEC701EB1C3690022A053 /* YKChatTextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKChatTextMessageCell.swift; sourceTree = "<group>"; };
 		E20AEC721EB2EEA50022A053 /* NSObject+YKExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+YKExtension.swift"; sourceTree = "<group>"; };
+		E20ECAE51F0DC5CC00521B3B /* YKContactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKContactsService.swift; sourceTree = "<group>"; };
 		E21442941EE113A50033CE17 /* YKConversationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKConversationViewModel.swift; sourceTree = "<group>"; };
 		E21442971EE141E90033CE17 /* YKConversationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKConversationService.swift; sourceTree = "<group>"; };
 		E21442991EE153630033CE17 /* Dictionary+YKExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+YKExtension.swift"; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 				E21442971EE141E90033CE17 /* YKConversationService.swift */,
 				E2FC561D1EE8F5A100280714 /* YKSessionService.swift */,
 				E2B8168F1EF91E8F0030E169 /* YKConversationListService.swift */,
+				E20ECAE51F0DC5CC00521B3B /* YKContactsService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -934,6 +937,7 @@
 				E22039E11F0A1A6F0090953E /* YKBadgeView.swift in Sources */,
 				E20AEC6F1EB19E110022A053 /* YKConversationHelper.swift in Sources */,
 				E20AEC4C1EAEFB5C0022A053 /* YKHotUserViewController.swift in Sources */,
+				E20ECAE61F0DC5CD00521B3B /* YKContactsService.swift in Sources */,
 				E25456F61EB87D9B008141B0 /* YKChatSystemMessageCell.swift in Sources */,
 				E20AEC541EB023D00022A053 /* YKUserDetailViewController.swift in Sources */,
 				E2B327F21EAE02570079222F /* NSString+YKExtension.swift in Sources */,

@@ -38,6 +38,8 @@ class YKSessionService: NSObject,AVIMClientDelegate {
         
         self.openService()
         
+        YKConversationService.defaultService().createDataBaseWithUserId(userId: clientId)
+        
         self.clientId = clientId
         
         self.client = AVIMClient.init(clientId: clientId, tag: clientId)

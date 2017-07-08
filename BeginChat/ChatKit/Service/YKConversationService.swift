@@ -8,8 +8,7 @@
 
 import Foundation
 import AVOSCloudIM
-
-
+import SQLite
 
 
 class YKConversationService: NSObject {
@@ -19,6 +18,8 @@ class YKConversationService: NSObject {
     open var conversation:AVIMConversation?
     
     var fetchConversationHandler: YKFetchConversationHandler?
+    
+    var database:Connection?
     
     
     //MARK: - ****** Swift Singleton ******
@@ -197,6 +198,76 @@ class YKConversationService: NSObject {
         }else{
             conversation.queryMessages(beforeId: nil, timestamp: Int64(timestamp), limit: UInt(limit), callback: callback)
         }
+    }
+    
+    
+    //MARK: - ****** Conversation Local Data ******
+    
+    
+    
+    //MARK: - ****** Database ******
+    func createDataBaseWithUserId(userId:String) {
+        
+        let dbPath = self.databasePathWithUserId(userId: userId)
+        
+        print("数据库路径\(dbPath)")
+        
+        database = try? Connection(dbPath)
+        
+        self.createContactDatabaseWithPath(path: dbPath)
+        self.createSucceedMessageDatabaseWithPath(path: dbPath)
+    }
+    
+    func createContactDatabaseWithPath(path:String) {
+        
+        let contacts = Table("Contact")
+        
+        let id = Expression<String>("id")
+        let name  = Expression<String>("nickName")
+        let avatar = Expression<String>("avatar")
+        
+        do {
+            try database?.run(contacts.create(ifNotExists:true) { t in
+                t.column(id, primaryKey: true)
+                t.column(name)
+                t.column(avatar)
+            })
+        } catch {
+            print("出错了\(error)")
+        }
+    }
+    
+    func createSucceedMessageDatabaseWithPath(path:String)  {
+        
+        let conversationTab = Table("conversations")
+        
+        let id = Expression<String>("id")
+        let data = Expression<Blob>("data")
+        let unReadCount = Expression<Int>("unReadCount")
+        let mentioned = Expression<Bool>("mentioned")
+        let draft = Expression<String>("draft")
+        
+        do {
+            try database?.run(conversationTab.create(ifNotExists:true){ t in
+                t.column(id, primaryKey: true)
+                t.column(data)
+                t.column(unReadCount, defaultValue: 0)
+                t.column(mentioned, defaultValue: false)
+                t.column(draft)
+            })
+        } catch {
+            print("出错了\(error)")
+        }
+    }
+    
+    
+    func databasePathWithUserId(userId:String?) -> String {
+        
+        let libPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+        
+        let appId = YKChatKit.defaultKit().appId
+        
+        return libPath.appendingFormat("/com.BKChat.%@.%@db.sqlite3", appId ?? "TestId",userId ?? "TestUser")
     }
     
 }
