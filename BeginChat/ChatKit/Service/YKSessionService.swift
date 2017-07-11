@@ -24,6 +24,7 @@ class YKSessionService: NSObject,AVIMClientDelegate {
     var clientId:String?
     
     open var connect = false
+    var isPlayingSound = false
     
     
     //MARK: - ****** Methods ******
@@ -109,15 +110,41 @@ class YKSessionService: NSObject,AVIMClientDelegate {
             
         }
         
-        self.receivedMessages(messages: [message], conversation: conversation, isUnReadMessage: true)
+        self.receivedMessages(messages: [message], conversation: conversation, isUnReadMessage: false)
     }
     
     func receivedMessages(messages:Array<AVIMTypedMessage>,conversation:AVIMConversation, isUnReadMessage:Bool) {
         
+        YKConversationListService.defaultService().insertRecentConversation(conversation: conversation, shouldRefreshWhenFinished: false)
+        
+        YKConversationListService.defaultService().increaseUnReadCount(increaseUnreadCount: messages.count, with: conversation.conversationId!, shouldRefreshWhenFinished: false)
+        
         let userInfo = [YKMessageNotificationUserInfoConversationKey:conversation,YKDidReceiveMessagesUserInfoMessagesKey:messages] as [String : Any]
+        
+        if !isUnReadMessage {
+            self.playReceiveSoundIfNeededForConversation(conversation: conversation)
+        }
         
         let notificationName = NSNotification.Name(rawValue: YKNotificationMessageReceived)
         NotificationCenter.default.post(name:notificationName, object: userInfo)
+    }
+    
+    //MARK: - ****** Play Sound ******
+    func playReceiveSoundIfNeededForConversation(conversation:AVIMConversation) {
+        
+        if conversation.muted  || isPlayingSound{
+            return
+        }
+        
+        isPlayingSound = true
+        
+        YKSoundManager.manager().playLoudReceiveSoundIfNeed()
+        YKSoundManager.manager().vibrateIfNeed()
+        
+        ///一定时间只播放一次
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+            self.isPlayingSound = false
+        }
     }
     
     

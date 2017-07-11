@@ -28,6 +28,6 @@ public let YKOnePageSize = 10
 public let YKNotificationMessageReceived = "YKNotificationMessageReceived"
 public let YKDidReceiveMessagesUserInfoMessagesKey = "receivedMessages"
 public let YKMessageNotificationUserInfoConversationKey = "conversation"
-
-
+public let YKNotificationConversationListDataSourceUpdated = "YKNotificationConversationListDataSourceUpdated"
+public let YKNotificationUnreadsUpdated = "YKNotificationUnreadsUpdated"
 

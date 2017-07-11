@@ -15,7 +15,11 @@ class YKConversationService: NSObject {
     
     var currentConversationId: String?
     
-    open var conversation:AVIMConversation?
+    open var currentConversation:AVIMConversation?{
+        didSet{
+            YKConversationListService.defaultService().currentConversation = currentConversation
+        }
+    }
     
     var fetchConversationHandler: YKFetchConversationHandler?
     
@@ -205,6 +209,9 @@ class YKConversationService: NSObject {
     
     
     
+    
+    
+    
     //MARK: - ****** Database ******
     func createDataBaseWithUserId(userId:String) {
         
@@ -269,5 +276,5 @@ class YKConversationService: NSObject {
         
         return libPath.appendingFormat("/com.BKChat.%@.%@db.sqlite3", appId ?? "TestId",userId ?? "TestUser")
     }
-    
 }
+

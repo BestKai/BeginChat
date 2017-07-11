@@ -29,4 +29,5 @@ extension AVIMTypedMessage {
         }
         return avimTypedMessage!
     }
+    
 }

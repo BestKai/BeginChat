@@ -35,6 +35,7 @@
 		E22039DD1F0A138D0090953E /* Placeholder_Image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E22039DB1F0A138D0090953E /* Placeholder_Image@2x.png */; };
 		E22039DE1F0A138D0090953E /* Placeholder_Accept_Defeat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E22039DC1F0A138D0090953E /* Placeholder_Accept_Defeat@2x.png */; };
 		E22039E11F0A1A6F0090953E /* YKBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22039E01F0A1A6F0090953E /* YKBadgeView.swift */; };
+		E2221A411F149CE70042016E /* YKSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2221A401F149CE60042016E /* YKSoundManager.swift */; };
 		E22579AC1EEE260B00432490 /* YKChatConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22579AB1EEE260B00432490 /* YKChatConstant.swift */; };
 		E23CF0451EBC097300F52BC0 /* chat_bar_emoji_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23CF0171EBC097300F52BC0 /* chat_bar_emoji_highlight@2x.png */; };
 		E23CF0461EBC097300F52BC0 /* chat_bar_emoji_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23CF0181EBC097300F52BC0 /* chat_bar_emoji_normal@2x.png */; };
@@ -85,6 +86,9 @@
 		E23CF0741EBC546700F52BC0 /* YKChatFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CF0731EBC546700F52BC0 /* YKChatFaceView.swift */; };
 		E23CF0761EBC547900F52BC0 /* YKChatMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CF0751EBC547900F52BC0 /* YKChatMoreView.swift */; };
 		E245099D1EDFBB9900363A0E /* YKChatBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E245099C1EDFBB9900363A0E /* YKChatBarHelper.swift */; };
+		E248545B1F14B87D00243A2F /* loudReceive.caf in Resources */ = {isa = PBXBuildFile; fileRef = E24854581F14B87C00243A2F /* loudReceive.caf */; };
+		E248545C1F14B87D00243A2F /* send.caf in Resources */ = {isa = PBXBuildFile; fileRef = E24854591F14B87D00243A2F /* send.caf */; };
+		E248545D1F14B87D00243A2F /* receive.caf in Resources */ = {isa = PBXBuildFile; fileRef = E248545A1F14B87D00243A2F /* receive.caf */; };
 		E25456F41EB835F9008141B0 /* YKDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25456F31EB835F9008141B0 /* YKDefine.swift */; };
 		E25456F61EB87D9B008141B0 /* YKChatSystemMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25456F51EB87D9B008141B0 /* YKChatSystemMessageCell.swift */; };
 		E254571E1EB98047008141B0 /* message_hollow_receiver_background_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E25456F81EB98047008141B0 /* message_hollow_receiver_background_highlight@2x.png */; };
@@ -178,6 +182,7 @@
 		E22039DB1F0A138D0090953E /* Placeholder_Image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Placeholder_Image@2x.png"; path = "../../../../../../../Downloads/ChatKit-OC-master-2/ChatKit/Class/Resources/Placeholder.bundle/Placeholder_Image@2x.png"; sourceTree = "<group>"; };
 		E22039DC1F0A138D0090953E /* Placeholder_Accept_Defeat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Placeholder_Accept_Defeat@2x.png"; path = "../../../../../../../Downloads/ChatKit-OC-master-2/ChatKit/Class/Resources/Placeholder.bundle/Placeholder_Accept_Defeat@2x.png"; sourceTree = "<group>"; };
 		E22039E01F0A1A6F0090953E /* YKBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKBadgeView.swift; sourceTree = "<group>"; };
+		E2221A401F149CE60042016E /* YKSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKSoundManager.swift; sourceTree = "<group>"; };
 		E22579AB1EEE260B00432490 /* YKChatConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKChatConstant.swift; sourceTree = "<group>"; };
 		E23CF0171EBC097300F52BC0 /* chat_bar_emoji_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bar_emoji_highlight@2x.png"; sourceTree = "<group>"; };
 		E23CF0181EBC097300F52BC0 /* chat_bar_emoji_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bar_emoji_normal@2x.png"; sourceTree = "<group>"; };
@@ -228,6 +233,9 @@
 		E23CF0731EBC546700F52BC0 /* YKChatFaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKChatFaceView.swift; sourceTree = "<group>"; };
 		E23CF0751EBC547900F52BC0 /* YKChatMoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKChatMoreView.swift; sourceTree = "<group>"; };
 		E245099C1EDFBB9900363A0E /* YKChatBarHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKChatBarHelper.swift; sourceTree = "<group>"; };
+		E24854581F14B87C00243A2F /* loudReceive.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = loudReceive.caf; path = "../../../../../../../Downloads/ChatKit-OC-master-2/ChatKit/Class/Resources/VoiceMessageSource.bundle/loudReceive.caf"; sourceTree = "<group>"; };
+		E24854591F14B87D00243A2F /* send.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = send.caf; path = "../../../../../../../Downloads/ChatKit-OC-master-2/ChatKit/Class/Resources/VoiceMessageSource.bundle/send.caf"; sourceTree = "<group>"; };
+		E248545A1F14B87D00243A2F /* receive.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = receive.caf; path = "../../../../../../../Downloads/ChatKit-OC-master-2/ChatKit/Class/Resources/VoiceMessageSource.bundle/receive.caf"; sourceTree = "<group>"; };
 		E25456F31EB835F9008141B0 /* YKDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKDefine.swift; sourceTree = "<group>"; };
 		E25456F51EB87D9B008141B0 /* YKChatSystemMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YKChatSystemMessageCell.swift; sourceTree = "<group>"; };
 		E25456F81EB98047008141B0 /* message_hollow_receiver_background_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message_hollow_receiver_background_highlight@2x.png"; sourceTree = "<group>"; };
@@ -388,6 +396,7 @@
 			children = (
 				E2FC561F1EE9487600280714 /* YKChatKit.swift */,
 				E22579AB1EEE260B00432490 /* YKChatConstant.swift */,
+				E2221A3F1F149CC00042016E /* Tool */,
 				E21442961EE141A90033CE17 /* Service */,
 				E25456F71EB970CE008141B0 /* Resources */,
 				E20AEC6D1EB19DC10022A053 /* Helpers */,
@@ -496,6 +505,14 @@
 			name = OtherView;
 			sourceTree = "<group>";
 		};
+		E2221A3F1F149CC00042016E /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				E2221A401F149CE60042016E /* YKSoundManager.swift */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		E23CF0161EBC08EE00F52BC0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,9 +566,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		E24854511F14A55000243A2F /* VoiceMessageSource */ = {
+			isa = PBXGroup;
+			children = (
+				E24854581F14B87C00243A2F /* loudReceive.caf */,
+				E248545A1F14B87D00243A2F /* receive.caf */,
+				E24854591F14B87D00243A2F /* send.caf */,
+			);
+			path = VoiceMessageSource;
+			sourceTree = "<group>";
+		};
 		E25456F71EB970CE008141B0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E24854511F14A55000243A2F /* VoiceMessageSource */,
 				E22039DA1F0A13630090953E /* Placeholder */,
 				E25456F81EB98047008141B0 /* message_hollow_receiver_background_highlight@2x.png */,
 				E25456F91EB98047008141B0 /* message_hollow_receiver_background_highlight@3x.png */,
@@ -788,6 +816,7 @@
 				E23CF0481EBC097300F52BC0 /* chat_bar_face_normal@3x.png in Resources */,
 				E25457371EB98047008141B0 /* RecordingSignal001@2x.png in Resources */,
 				E254572F1EB98047008141B0 /* MessageBubble_Sender@2x.png in Resources */,
+				E248545C1F14B87D00243A2F /* send.caf in Resources */,
 				E2F07A8A1EAA093800ECFA13 /* LaunchScreen.storyboard in Resources */,
 				E254572A1EB98047008141B0 /* message_sender_background_highlight@2x.png in Resources */,
 				E23CF0561EBC097300F52BC0 /* location_green_icon@2x.png in Resources */,
@@ -811,6 +840,7 @@
 				E25457421EB98047008141B0 /* SenderVoiceNodePlaying003@2x.png in Resources */,
 				E254573D1EB98047008141B0 /* RecordingSignal007@2x.png in Resources */,
 				E23CF0701EBC097300F52BC0 /* VoiceBtn_Black@3x.png in Resources */,
+				E248545B1F14B87D00243A2F /* loudReceive.caf in Resources */,
 				E25457241EB98047008141B0 /* message_hollow_sender_background_normal@2x.png in Resources */,
 				E23CF05C1EBC097300F52BC0 /* show_user_location_normal@2x.png in Resources */,
 				E2E1A5591EADE9160002ADD3 /* app_icon_200@2x.png in Resources */,
@@ -830,6 +860,7 @@
 				E23CF04F1EBC097300F52BC0 /* chat_bar_picture_normal@2x.png in Resources */,
 				E25457381EB98047008141B0 /* RecordingSignal002@2x.png in Resources */,
 				E23CF04C1EBC097300F52BC0 /* chat_bar_input_normal@2x.png in Resources */,
+				E248545D1F14B87D00243A2F /* receive.caf in Resources */,
 				E23CF0631EBC097300F52BC0 /* ToolViewInputVoice@2x.png in Resources */,
 				E23CF0531EBC097300F52BC0 /* chat_bar_voice_normal@2x.png in Resources */,
 				E2F07A851EAA093800ECFA13 /* Main.storyboard in Resources */,
@@ -947,6 +978,7 @@
 				E2E1A55C1EADF97A0002ADD3 /* YKRegisterViewController.swift in Sources */,
 				E20AEC6C1EB180F80022A053 /* YKChatMessageTableViewCell.swift in Sources */,
 				E20AEC4F1EAF3B660022A053 /* YKHotUserTableViewCell.swift in Sources */,
+				E2221A411F149CE70042016E /* YKSoundManager.swift in Sources */,
 				E20AEC711EB1C3690022A053 /* YKChatTextMessageCell.swift in Sources */,
 				E21442951EE113A50033CE17 /* YKConversationViewModel.swift in Sources */,
 				E20AEC5C1EB04E570022A053 /* YKBaseTableViewController.swift in Sources */,

@@ -89,7 +89,7 @@ class YKContactsService: NSObject {
     
     func writeUserToDatabase(user:YKUser) {
         
-        let insert = contactTable?.insert(Expression("nickName") <- user.name, Expression("id") <- user.userId, Expression("avatar") <- user.avatarURL?.absoluteString)
+        let insert = contactTable?.insert(or:.replace, Expression("nickName") <- user.name, Expression("id") <- user.userId, Expression("avatar") <- user.avatarURL?.absoluteString)
         
         do {
             try YKConversationService.defaultService().database?.run(insert!)

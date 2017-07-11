@@ -8,6 +8,10 @@
 
 import Foundation
 import AVOSCloudIM
+
+private var CONVErSATION_UNREADCOUNT_PROPERTY = 0
+
+
 extension AVIMConversation {
     
     var yk_peerId: String {
@@ -38,4 +42,27 @@ extension AVIMConversation {
         }
     }
     
+    var yk_unReadCount:Int {
+        get {
+            guard let count = objc_getAssociatedObject(self, &CONVErSATION_UNREADCOUNT_PROPERTY) as? Int else { return 0 }
+            return count
+        }
+        set {
+            objc_setAssociatedObject(self, &CONVErSATION_UNREADCOUNT_PROPERTY, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
+        }
+    }
+    
+    func converToData() -> Data {
+        
+        let keydConversation = self.keyedConversation()
+        let data = NSKeyedArchiver.archivedData(withRootObject: keydConversation)
+        return data
+    }
+    
+    class func getConversatioinWithData(data:Data) -> AVIMConversation? {
+        let keydConversatioin = NSKeyedUnarchiver.unarchiveObject(with: data)
+        let conversation = YKConversationService.defaultService().client?.conversation(with: keydConversatioin as! AVIMKeyedConversation)
+        
+        return conversation
+    }
 }

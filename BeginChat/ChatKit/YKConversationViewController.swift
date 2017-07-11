@@ -345,7 +345,7 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
         }
         
         if self.conversation != nil {
-            YKConversationService.defaultService().conversation = self.conversation
+            YKConversationService.defaultService().currentConversation = self.conversation
         }
     }
     
@@ -387,6 +387,15 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     private func notJoinedHandler(conversation:AVIMConversation?,error:Error){
         
     }
+    
+    
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        DispatchQueue.global().async {
+            YKConversationListService.defaultService().updateConversationAsReadWithLastMessage(lastMessage: self.conversation?.lastMessage)
+        }
+    }
+    
     
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

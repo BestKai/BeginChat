@@ -133,7 +133,7 @@ class YKConversationListCell: UITableViewCell {
         
         self.timeLabel.text = dateFormate.string(from: (conversation?.updateAt)!)
         
-        self.badgeView.badgeText = String.init(format: "%d",(conversation?.unreadMessagesCount)!)
+        self.badgeView.badgeText = String.init(format: "%d",(conversation?.yk_unReadCount)!)
     }
     
     

@@ -41,8 +41,10 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         
         self.loadConversationData(isrefresh: false)
         
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveMessage(notification:)), name: NSNotification.Name(rawValue: YKNotificationMessageReceived), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshConversationData), name: NSNotification.Name(rawValue: YKNotificationMessageReceived), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshConversationData), name: NSNotification.Name(rawValue: YKNotificationUnreadsUpdated), object: nil
+        )
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshConversationData), name: NSNotification.Name(rawValue:YKNotificationConversationListDataSourceUpdated), object: nil)
     }
     
     func setUpConstraint() {
@@ -57,7 +59,7 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func loadConversationData(isrefresh:Bool) {
-        YKConversationListService.defaultService().fetchRelationConversationFromServer(isRefresh: isrefresh) { (objects, error) in
+        YKConversationListService.defaultService().refreshConversation { (objects, error) in
             if objects != nil {
                 self.dataSources = objects!
             }
@@ -144,6 +146,9 @@ class YKChatListViewController: UIViewController,UITableViewDelegate,UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     /*
     // MARK: - Navigation
