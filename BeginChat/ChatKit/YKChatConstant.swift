@@ -23,6 +23,8 @@ public typealias YKFetchConversationHandler = (AVIMConversation?,YKConversationV
 public typealias YKConversationResultClosure = (AVIMConversation?,Error?) -> Void
 
 public let YKOnePageSize = 10
+public let YKBadgeValueGreaterThanLimit = "···"
+
 
 
 public let YKNotificationMessageReceived = "YKNotificationMessageReceived"

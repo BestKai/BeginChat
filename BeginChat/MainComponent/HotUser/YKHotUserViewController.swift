@@ -15,8 +15,9 @@ class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewD
     private var refreshControl:UIRefreshControl?
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView.init(frame: CGRect.zero, style: UITableViewStyle.plain)
-        tableView.register(YKHotUserTableViewCell.classForCoder(), forCellReuseIdentifier: "YKHotUserTableViewCell")
+        let tableView = UITableView.init(frame: CGRect.zero, style: .grouped)
+        tableView.tableHeaderView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))//去除顶部多余的空白
+ tableView.register(YKHotUserTableViewCell.classForCoder(), forCellReuseIdentifier: "YKHotUserTableViewCell")
         tableView.rowHeight = 60
         tableView.tableFooterView = UIView.init()
         tableView.delegate = self
@@ -34,7 +35,7 @@ class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = "发现"
+        self.navigationItem.title = "发现"
         self.view.backgroundColor = UIColor.white
 
         self.initSubViews()
@@ -75,6 +76,9 @@ class YKHotUserViewController: UIViewController,UITableViewDelegate,UITableViewD
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 16
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import AVOSCloud
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UITextFieldDelegate {
 
     var phoneTextField: UITextField?
     var passwordTextField: UITextField?
@@ -24,6 +24,9 @@ class ViewController: UIViewController {
         let infoDic = Bundle.main.infoDictionary
         self.title = infoDic?["CFBundleDisplayName"] as? String
         self.initSubViews()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidChange(notification:)), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+
         
         if (AVUser.current() != nil) {
             
@@ -67,6 +70,7 @@ class ViewController: UIViewController {
         loginButton?.layer.borderColor = UIColor.init(colorLiteralRed: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1).cgColor
         loginButton?.layer.borderWidth = 0.5
         loginButton?.addTarget(self, action:#selector(loginBtTapped), for: UIControlEvents.touchUpInside)
+        loginButton?.ykIsEnable = false
         self.view.addSubview(loginButton!)
         
         
@@ -141,6 +145,18 @@ class ViewController: UIViewController {
         
         let mainTabbarVC = YKMainTabViewController.init()
         self.navigationController?.present(mainTabbarVC, animated: true, completion: nil)
+    }
+    
+    //MARK: - ****** UITextFieldDelegate ******
+    
+    @objc func textFieldTextDidChange(notification:NSNotification) {
+        
+        loginButton?.ykIsEnable = ((phoneTextField?.text?.isAvaliablePhoneNumber())! &&  ((passwordTextField?.text?.characters.count)! >= 6))
+    }
+    
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {

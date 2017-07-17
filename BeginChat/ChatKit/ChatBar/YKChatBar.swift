@@ -469,7 +469,8 @@ class YKChatBar: UIView,UITextViewDelegate {
         
         if let theMethod = delegate?.chatBarSendMessage {
             theMethod(self, text)
-            self.textView.text = nil
+            self.textView.text = ""
+            self.handleInputTextViewHeight()
         }
     }
     
@@ -486,6 +487,10 @@ class YKChatBar: UIView,UITextViewDelegate {
         faceButton.isSelected = false
         moreButton.isSelected = false
         voiceButton.isSelected = false
+        //避免默认隐藏键盘 滑动依然自动返回底部bug
+        if showType == .showNothing {
+            return
+        }
         
         showType = .showNothing
         

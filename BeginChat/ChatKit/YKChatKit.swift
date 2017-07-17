@@ -71,3 +71,21 @@ class YKChatKit: NSObject {
     }
     
 }
+//MARK: - ****** BadgeValue ******
+extension YKChatKit {
+   class func handleBadgeView(controller:UIViewController,totalCount:Int) {
+        
+        var badgeValue = "\(totalCount)"
+        
+        if totalCount > 0 {
+            if totalCount > 99 {
+                badgeValue = YKBadgeValueGreaterThanLimit
+            }
+            controller.tabBarItem.badgeValue = badgeValue
+            UIApplication.shared.applicationIconBadgeNumber = totalCount
+        }else{
+            controller.tabBarItem.badgeValue = nil
+            UIApplication.shared.applicationIconBadgeNumber = 0
+        }
+    }
+}

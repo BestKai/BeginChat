@@ -111,4 +111,27 @@ extension UIView {
             self.frame = frame
         }
     }
+    
+    func zoom(animatedTime:TimeInterval,maxScale:Float,minScale:Float) {
+        
+        UIView.animate(withDuration: animatedTime, animations: {
+            
+            self.transform = CGAffineTransform.init(scaleX: CGFloat(maxScale), y: CGFloat(maxScale))
+        }) { (finished) in
+            if finished {
+                
+                UIView.animate(withDuration: animatedTime, animations: {
+                    self.transform = CGAffineTransform.init(scaleX: CGFloat(minScale), y: CGFloat(minScale))
+                }, completion: { (finished) in
+                    
+                    if finished {
+                        
+                        UIView.animate(withDuration: animatedTime, animations: {
+                            self.transform = CGAffineTransform.init(scaleX: CGFloat(1), y: CGFloat(1))
+                        })
+                    }
+                })
+            }
+        }
+    }
 }

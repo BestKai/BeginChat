@@ -171,11 +171,11 @@ class YKChatMessageTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         super.updateConstraints()
-        if message?.ownerType == YKMessageOwnerType.BySystem || message?.ownerType == YKMessageOwnerType.Unknown {
+        if messageOwner == .BySystem || messageOwner == .Unknown {
             return
         }
         
-        if message?.ownerType == YKMessageOwnerType.BySelf {
+        if messageOwner == .BySelf {
             self.avatarImageView.snp.makeConstraints({ (make) in
                 
                 make.right.equalTo(-YK_MSG_CELL_EDGES_OFFSET)
@@ -247,16 +247,18 @@ class YKChatMessageTableViewCell: UITableViewCell {
     }
     
     func addGeneralView() {
-        self.addSubview(self.nickNameLabel)
-        self.addSubview(self.avatarImageView)
-        self.addSubview(self.messageContentView)
+        self.contentView.addSubview(self.nickNameLabel)
+        self.contentView.addSubview(self.avatarImageView)
+        self.contentView.addSubview(self.messageContentView)
         
         self.messageContentBackgroundImageView.image = YKMessageCellBubbleImageFactory.bubbleImageViewWith(owner:self.messageOwner,messageType:self.mediaType!,isHighlighted:false)
         
         self.messageContentBackgroundImageView.highlightedImage = YKMessageCellBubbleImageFactory.bubbleImageViewWith(owner:self.messageOwner,messageType:self.mediaType!,isHighlighted:true)
         
         self.messageContentView.layer.mask?.contents = self.messageContentBackgroundImageView.image?.cgImage
-        self.insertSubview(self.messageContentBackgroundImageView, belowSubview: self.messageContentView)
+        self.contentView.insertSubview(self.messageContentBackgroundImageView, belowSubview: self.messageContentView)
+        
+        self.updateConstraintsIfNeeded()
     }
 
     

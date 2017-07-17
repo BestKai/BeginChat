@@ -1,20 +1,20 @@
 PODS:
   - Alamofire (4.4.0)
-  - AVOSCloud (5.0.2)
-  - AVOSCloudIM (5.0.2):
-    - AVOSCloud (= 5.0.2)
-    - AVOSCloudIM/_ARC (= 5.0.2)
-    - AVOSCloudIM/_NOARC (= 5.0.2)
-  - AVOSCloudIM/_ARC (5.0.2):
-    - AVOSCloud (= 5.0.2)
-    - AVOSCloudIM/_NOARC (= 5.0.2)
-  - AVOSCloudIM/_NOARC (5.0.2):
-    - AVOSCloud (= 5.0.2)
+  - AVOSCloud (6.1.1)
+  - AVOSCloudIM (6.1.1):
+    - AVOSCloud (= 6.1.1)
+    - AVOSCloudIM/_ARC (= 6.1.1)
+    - AVOSCloudIM/_NOARC (= 6.1.1)
+  - AVOSCloudIM/_ARC (6.1.1):
+    - AVOSCloud (= 6.1.1)
+    - AVOSCloudIM/_NOARC (= 6.1.1)
+  - AVOSCloudIM/_NOARC (6.1.1):
+    - AVOSCloud (= 6.1.1)
   - IQKeyboardManager (4.0.10)
-  - Kingfisher (3.10.1)
+  - Kingfisher (3.10.2)
   - MBProgressHUD (1.0.0)
   - MOBFoundation (3.0.0)
-  - SMSSDK (3.0.0):
+  - SMSSDK (3.0.1):
     - MOBFoundation
   - SnapKit (3.2.0)
   - SQLite.swift (0.11.3):
@@ -29,7 +29,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - SMSSDK
   - SnapKit (from `https://github.com/SnapKit/SnapKit.git`, branch `swift-4`)
-  - SQLite.swift (from `https://github.com/thebluepotato/SQLite.swift.git`, branch `swift-4`)
+  - SQLite.swift (from `https://github.com/stephencelis/SQLite.swift.git`, branch `swift-4`)
 
 EXTERNAL SOURCES:
   Alamofire:
@@ -43,34 +43,34 @@ EXTERNAL SOURCES:
     :git: https://github.com/SnapKit/SnapKit.git
   SQLite.swift:
     :branch: swift-4
-    :git: https://github.com/thebluepotato/SQLite.swift.git
+    :git: https://github.com/stephencelis/SQLite.swift.git
 
 CHECKOUT OPTIONS:
   Alamofire:
     :commit: 9d6d16316edfb8ece47abebe1621d05ee6b0e6ed
     :git: https://github.com/Alamofire/Alamofire.git
   Kingfisher:
-    :commit: 41554ac27ffd5c65870b182d7c6a46f3057972a0
+    :commit: 9cb165995668555c562138404a536844befbf4be
     :git: https://github.com/onevcat/Kingfisher.git
   SnapKit:
     :commit: d31148f449abe819fd1a58d5e07e94874c7e6003
     :git: https://github.com/SnapKit/SnapKit.git
   SQLite.swift:
-    :commit: 067c639ebc4ffb4eaeca4899293e829a4433bc55
-    :git: https://github.com/thebluepotato/SQLite.swift.git
+    :commit: 6463eb13c021cba6de2ed4e8a76a5c03301de200
+    :git: https://github.com/stephencelis/SQLite.swift.git
 
 SPEC CHECKSUMS:
   Alamofire: 4c2bf7fa03c4a626163606de0a417568c270575e
-  AVOSCloud: 01745f438fb9ef4f2cde2b992783a869cc1291e6
-  AVOSCloudIM: 8241151bf43f58ea08eeab976eedc3810a45efd5
+  AVOSCloud: a21318994cd97adaf9bf19cf0ac38187b3d94f00
+  AVOSCloudIM: 5ac1d53078cfd81e193e1eb6a365842d96ad3009
   IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
-  Kingfisher: 5225d74cc1575305780bfe579836bd525585ce5c
+  Kingfisher: d65c8e3db9bf83eb4354cc2c9444d4b1cfd38d14
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MOBFoundation: e6572a62983a44fa048c4038842ade1494c10059
-  SMSSDK: e4706231a3e6aa5620ec8a2d3fdc4d16870f746e
+  SMSSDK: a811c8ea6e89393097037b7cf6493248a40e50f0
   SnapKit: c71c530b73cedd2a8b998098687001baff265086
   SQLite.swift: f5e183af7f267169a3e71cefc7c0a72e687c52a7
 
-PODFILE CHECKSUM: b28dae5883fa332f120287fca5bfc13ca64be8ee
+PODFILE CHECKSUM: 73c96ecd1e0becd346f267a88ba775e8bf9bd839
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1

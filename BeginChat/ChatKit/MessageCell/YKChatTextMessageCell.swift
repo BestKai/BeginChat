@@ -43,7 +43,7 @@ class YKChatTextMessageCell: YKChatMessageTableViewCell {
         
         var textMessageEdgeInsets: UIEdgeInsets
         
-        if self.message?.ownerType == YKMessageOwnerType.BySelf {
+        if self.messageOwner == .BySelf {
             
             textMessageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, CGFloat(8 + YK_MSG_CELL_BUBBLE_WIDTH))
             

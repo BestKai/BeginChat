@@ -17,6 +17,7 @@ class YKMainTabViewController: UITabBarController {
         
         self.view.backgroundColor = UIColor.white
         
+        
         self.initSubViewControllers()
         
         self.startService()
@@ -27,14 +28,24 @@ class YKMainTabViewController: UITabBarController {
     func initSubViewControllers() {
         
         let chatListNav = UINavigationController.init(rootViewController: YKChatListViewController.init())
-        chatListNav.title = "聊天"
+        chatListNav.tabBarItem.title = nil
+        chatListNav.tabBarItem.image = UIImage.init(named: "tabbar_chat_unselected")?.withRenderingMode(.alwaysOriginal)
+        chatListNav.tabBarItem.selectedImage = UIImage.init(named: "tabbar_chat_selected")?.withRenderingMode(.alwaysOriginal)
+        chatListNav.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0)
+        
         
         let hotUserNav = UINavigationController.init(rootViewController: YKHotUserViewController.init())
-        hotUserNav.title = "发现"
-        
+        hotUserNav.tabBarItem.title = nil
+        hotUserNav.tabBarItem.image = UIImage.init(named: "tabbar_discover_unselected")?.withRenderingMode(.alwaysOriginal)
+        hotUserNav.tabBarItem.selectedImage = UIImage.init(named: "tabbar_discover_selected")?.withRenderingMode(.alwaysOriginal)
+        hotUserNav.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0)
+
         let mineNav = UINavigationController.init(rootViewController: YKMineViewController.init())
-        mineNav.title = "我"
-        
+        mineNav.tabBarItem.title = nil
+        mineNav.tabBarItem.image = UIImage.init(named: "tabbar_mine_unselected")?.withRenderingMode(.alwaysOriginal)
+        mineNav.tabBarItem.selectedImage = UIImage.init(named: "tabbar_mine_selected")?.withRenderingMode(.alwaysOriginal)
+        mineNav.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0)
+
         self.viewControllers = [chatListNav,hotUserNav,mineNav]
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue):UIColor.black], for: UIControlState.selected)
     }
@@ -74,12 +85,23 @@ class YKMainTabViewController: UITabBarController {
     }
     
     
+    //MARK: - ****** UITabbarDelegate ******
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        let index = tabBar.items?.index(of: item)
+        
+        let selectedItemView = tabBar.subviews[index! + 1]
+        
+        let selectedImageView = selectedItemView.subviews.first as! UIImageView
+        
+        selectedImageView.zoom(animatedTime: 0.2, maxScale: 1.3, minScale: 0.9)
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
     /*
     // MARK: - Navigation
 

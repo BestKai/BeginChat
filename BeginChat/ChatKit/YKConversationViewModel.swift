@@ -33,6 +33,8 @@ class YKConversationViewModel: NSObject {
         return currentConversationId!
     }()
     
+    var avimTypedMessages = Array<AVIMTypedMessage>()
+    
     
     init(parentViewController: YKConversationViewController) {
         self.parentViewController = parentViewController
@@ -76,7 +78,9 @@ class YKConversationViewModel: NSObject {
         
         avimTypedMessage = AVIMTypedMessage.yk_messageWithYKMessage(message: message)
         
-        self.preloadMessageToTableView(aMessage: message) { 
+        self.avimTypedMessages.append(avimTypedMessage)
+        
+        self.preloadMessageToTableView(aMessage: message) {
             
             YKConversationService.defaultService().sendMessage(message: avimTypedMessage, conversation: currentConversation!, progressClosure: progressClosure!, callBack: { (succeeded, error) in
                 if error == nil {
@@ -111,7 +115,7 @@ class YKConversationViewModel: NSObject {
         
         let lastObject = self.parentViewController.dataSources.count > 0 ? self.parentViewController.dataSources.last : nil
         
-        self.appendMessagesToDataArrayTrailing(messages: self.messageWithSystemMessages(messages: messages, lastMessage: lastObject))
+        self.appendMessagesToDataArrayTrailing(messages: self.getMessagesContainSystemMessages(messages: messages, lastMessage: lastObject))
     }
     
     private func appendMessagesToDataArrayTrailing(messages:Array<Any>){
@@ -121,7 +125,7 @@ class YKConversationViewModel: NSObject {
         }
     }
     
-    private func messageWithSystemMessages(messages:Array<Any>,lastMessage:Any?) -> Array<Any> {
+    private func getMessagesContainSystemMessages(messages:Array<Any>,lastMessage:Any?) -> Array<Any> {
         
         var messageWithSystemMessages:Array = [Any]()
         
@@ -133,7 +137,7 @@ class YKConversationViewModel: NSObject {
                     if tempMsg.shouldDisplayTiemLabel(lastMessage:lastMessage as? YKMessage) {
                        messageWithSystemMessages.append(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!))                   }
                 }else{
-                    if tempMsg.shouldDisplayTiemLabel(lastMessage: messageWithSystemMessages[index - 1] as? YKMessage) {
+                    if tempMsg.shouldDisplayTiemLabel(lastMessage: messages[index - 1] as? YKMessage) {
                         messageWithSystemMessages.append(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!))
                     }
                 }
@@ -142,7 +146,7 @@ class YKConversationViewModel: NSObject {
                     messageWithSystemMessages.append(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!))
                     
                 }else {
-                    if tempMsg.shouldDisplayTiemLabel(lastMessage: messageWithSystemMessages[index - 1] as? YKMessage) {
+                    if tempMsg.shouldDisplayTiemLabel(lastMessage: messages[index - 1] as? YKMessage) {
                         messageWithSystemMessages.append(YKMessage.systemMessageWithTimestamp(timeStamp: tempMsg.timestamp!))
                     }
                 }
@@ -157,14 +161,14 @@ class YKConversationViewModel: NSObject {
     func loadMessagesFirstTimeWithCallback(callback:@escaping YKBooleanResultClosure) {
         self.queryAndCacheMessageWithTimestamp(timestamp: 0) { (messages, error) in
             
-            for (_,message) in (messages?.enumerated())! {
-                
-                let ykmessage = YKMessage.messageWithAVIMTypedMessage(message: message as! AVIMTypedMessage)
-                if ykmessage != nil {
-                  self.parentViewController.dataSources.append(ykmessage!)
-                    
-                }
-            }
+            self.avimTypedMessages = messages as! [AVIMTypedMessage]
+            
+            let ykMessages = self.messagesWithAVIMMessages(messages: messages as! Array<AVIMTypedMessage>)
+            
+            let conbineMessages = self.getMessagesContainSystemMessages(messages: ykMessages, lastMessage: nil)
+            
+            self.parentViewController.dataSources =  self.parentViewController.dataSources+conbineMessages
+            
             callback(true,nil)
         }
     }
@@ -223,6 +227,34 @@ class YKConversationViewModel: NSObject {
         self.appendingMessagesToTrailing(messages: messages)
         self.delegate?.reloadAfterReceiveMessage()
     }
+    
+    
+    func loadOldMessages(closure:@escaping YKArrayResultBlock) {
+        
+        let ykMessage:AVIMTypedMessage = self.avimTypedMessages[0]
+        
+        self.queryAndCacheMessageWithTimestamp(timestamp: Int(ykMessage.sendTimestamp)) { (avimTypedMessages, error) in
+            self.parentViewController.loadingMoreMessage = false
+
+            if error == nil{
+                
+                let tempMsgs = avimTypedMessages as! [AVIMTypedMessage]
+                let newMsgs = tempMsgs  + self.avimTypedMessages
+                self.avimTypedMessages = newMsgs
+                
+                
+                let ykMessages = self.messagesWithAVIMMessages(messages: avimTypedMessages as! Array<AVIMTypedMessage>)
+                
+                var conbineMessages = self.getMessagesContainSystemMessages(messages: ykMessages, lastMessage: nil)
+                
+                conbineMessages = conbineMessages + self.parentViewController.dataSources
+                
+                self.parentViewController.dataSources = conbineMessages
+            }
+            closure(avimTypedMessages, error)
+        }
+    }
+    
     
     
     

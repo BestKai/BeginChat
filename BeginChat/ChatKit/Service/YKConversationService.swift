@@ -58,7 +58,12 @@ class YKConversationService: NSObject {
             
             for (_,memberId) in members.enumerated() {
                 if memberId != YKSessionService.defaultService().clientId{
-                    name = memberId
+                    
+                    if let temname = YKContactsService.defaultService().getLocalUserWithUserId(userId: memberId)?.name {
+                        name = temname
+                    }else{
+                        name = memberId
+                    }
                 }
             }
         }
@@ -68,7 +73,7 @@ class YKConversationService: NSObject {
             options = .unique
         }
         
-        self.client?.createConversation(withName: name, clientIds: members, attributes: ["type" : type], options: options, callback: callback)
+        self.client?.createConversation(withName: name, clientIds: members, attributes: ["type" : type.rawValue], options: options, callback: callback)
     }
     
     //发送消息

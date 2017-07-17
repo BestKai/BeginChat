@@ -14,6 +14,7 @@
 #import "AVIMKeyedConversation.h"
 #import "AVIMConversationQuery.h"
 #import "AVIMTextMessage.h"
+#import "AVIMRecalledMessage.h"
 #import "AVIMLocationMessage.h"
 #import "AVIMAudioMessage.h"
 #import "AVIMVideoMessage.h"

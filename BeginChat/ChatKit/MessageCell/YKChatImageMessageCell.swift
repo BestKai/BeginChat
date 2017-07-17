@@ -39,7 +39,7 @@ class YKChatImageMessageCell: YKChatMessageTableViewCell {
         
         var textMessageEdgeInsets = UIEdgeInsets.zero
         
-        if self.message?.ownerType == YKMessageOwnerType.BySelf {
+        if self.messageOwner == .BySelf {
             
             textMessageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
             

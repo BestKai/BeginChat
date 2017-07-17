@@ -12,6 +12,9 @@ import SQLite
 
 var refreshedFromServer = false
 
+public typealias YKRecentConversationClosure = ([Any]?,Int, Error?) -> Void
+
+
 class YKConversationListService: NSObject {
     
     @discardableResult open class func defaultService() -> YKConversationListService {
@@ -41,9 +44,31 @@ class YKConversationListService: NSObject {
         self.fetchConversatioinFromLocal(closure: nil)
     }
     
-    func refreshConversation(closure:@escaping YKArrayResultBlock) {
+    func refreshConversation(closure:@escaping YKRecentConversationClosure) {
         
         let allConversations = [AVIMConversation](recentConversationDic.values)
+        
+        func handleResult(result:Array<AVIMConversation>?,error:Error?){
+            
+            var totalUnReadCount = 0
+            
+            var filterResult = Array<AVIMConversation>.init()
+            
+            if result != nil {
+                for (_,conversation) in (result?.enumerated())! {
+                    
+                    if !conversation.muted && conversation.yk_unReadCount>0{
+                        totalUnReadCount += conversation.yk_unReadCount
+                    }
+                    if conversation.lastMessage != nil {
+                        filterResult.append(conversation)
+                    }
+                }
+            }
+            
+            closure(filterResult,totalUnReadCount,error)
+        }
+        
         
         if !allConversations.isEmpty {
         if refreshedFromServer == false && YKSessionService.defaultService().connect {
@@ -56,26 +81,26 @@ class YKConversationListService: NSObject {
                 if error != nil {
                     
                     DispatchQueue.main.async(execute: {
-                        closure(allConversations,nil)
+                        handleResult(result: allConversations,error: nil)
                     })                }else{
                     refreshedFromServer = true
                     
                     YKConversationListService.defaultService().updateRecentConversations(conversations: objects as! Array<AVIMConversation>, shouldRefreshWhenFinshed: true)
                     DispatchQueue.main.async(execute: {
-                        closure(objects,error)
+                        handleResult(result: (objects as! Array<AVIMConversation>),error: error)
                     })                }
             })
         }else{
             
             DispatchQueue.main.async(execute: {
-                closure(allConversations,nil)
+                handleResult(result: allConversations,error: nil)
             })
         }
         }else{
             self.fetchRelationConversationFromServer(isRefresh: true, callback: { (objects, error) in
                 
                 DispatchQueue.main.async(execute: {
-                    closure(objects,error)
+                    handleResult(result: objects as? Array<AVIMConversation>,error: error)
                 })
             })
         }
@@ -179,7 +204,7 @@ class YKConversationListService: NSObject {
     
     func updateConversationAsReadWithLastMessage(lastMessage:AVIMMessage?) {
         
-        if currentConversation == nil {
+        if currentConversation == nil || currentConversation?.lastMessage == nil {
             return
         }
         
@@ -265,6 +290,49 @@ class YKConversationListService: NSObject {
             try YKConversationService.defaultService().database?.run(insert!)
         } catch {
             print("\(error)")
+        }
+    }
+    
+    //MARK: - ****** Delete ******
+    func deleteRecentConversationWithConversationId(conversationId:String) {
+        self.deleteRecentConversationWithConversationId(conversationId: conversationId, shouldRefreshWhenFinished: true)
+    }
+    
+    func deleteRecentConversationWithConversationId(conversationId:String,shouldRefreshWhenFinished:Bool)  {
+        self.deleteConversationFromServer(conversationId: conversationId) { (succeeded, error) in
+            
+            if succeeded {
+                self.recentConversationDic.removeValue(forKey:conversationId)
+                
+                let deleteQuery = self.conversationTable?.filter(Expression<String>("id") == conversationId)
+                
+                do {
+                    if try (YKConversationService.defaultService().database?.run((deleteQuery?.delete())!))! > 0{
+                        print("\(conversationId) deleted successed")
+                    }else{
+                        print("\(conversationId) not found")
+                    }
+                } catch {
+                    print("\(error)")
+                }
+            }
+        }
+        
+        if shouldRefreshWhenFinished {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: YKNotificationConversationListDataSourceUpdated), object: nil)
+        }
+    }
+    
+    func deleteConversationFromServer(conversationId:String,closure:@escaping YKBooleanResultClosure) {
+        
+        let query = AVQuery.init(className: "_Conversation")
+        query.whereKey("objectId", equalTo: conversationId)
+        
+        query.deleteAllInBackground { (succeede, error) in
+            if error != nil{
+                print("\(error!)")
+            }
+            closure(succeede,error)
         }
     }
 }

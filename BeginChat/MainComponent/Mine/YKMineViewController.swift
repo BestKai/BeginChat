@@ -22,7 +22,7 @@ class YKMineViewController: UIViewController,UITableViewDelegate,UITableViewData
         tableView.tableFooterView = UIView.init()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor.colorWithRGBValue(rgbValue: 0xfafafa)
+        tableView.backgroundColor = UIColor.colorWithRGBValue(rgbValue: 0xefeff4)
         tableView.register(YKMineSimpleInfoTableViewCell.self, forCellReuseIdentifier: String(describing: YKMineSimpleInfoTableViewCell.self))
         tableView.register(YKMineOtherFuncTableViewCell.self, forCellReuseIdentifier: String(describing: YKMineOtherFuncTableViewCell.self))
         return tableView
@@ -32,7 +32,7 @@ class YKMineViewController: UIViewController,UITableViewDelegate,UITableViewData
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = "我"
+        self.navigationItem.title = "我"
         self.view.backgroundColor = UIColor.white
         
         self.initSubViews()

@@ -59,6 +59,12 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
         
         self.tableView?.separatorStyle = UITableViewCellSeparatorStyle.none
         self.tableView?.backgroundColor = UIColor.init(colorLiteralRed: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)
+        let refreshControl = UIRefreshControl.init()
+        refreshControl.addTarget(self, action: #selector(loadMoreMessages), for: UIControlEvents.valueChanged)
+        
+        self.tableView?.refreshControl = refreshControl
+        
+        
         self.allowScrollToBottom = true
 
         
@@ -97,18 +103,26 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     }
     
     private func setUpConversation() {
+        
+        func handleSubViewsAfterLoadConversation(){
+            self.title = self.conversation?.name ?? ""
+        }
+        
         repeat {
             
             if peerId != nil {
                 YKConversationService.defaultService().fetchConversationWithPeerId(peerId: peerId!, callback: { (conversatioin, error) in
                     self.refreshConversation(conversation: conversatioin!, isJoined: true)
+                    
+                    handleSubViewsAfterLoadConversation()
                 })
                 break
             }
             
             if self.conversationId != nil {
                 YKConversationService.defaultService().fetchConversationWithConversationId(conversationId: self.conversationId!, callBack: { (conversation, error) in
-                    
+                    handleSubViewsAfterLoadConversation()
+
                     if error != nil {
                         self.refreshConversation(aConversation: conversation, isJoined: false, error: error)
                     }else{
@@ -386,6 +400,26 @@ public class YKConversationViewController: YKBaseTableViewController, YKChatBarD
     
     private func notJoinedHandler(conversation:AVIMConversation?,error:Error){
         
+    }
+    
+   @objc private func loadMoreMessages(){
+    chatViewModel.loadOldMessages { (newMsgs, error) in
+        self.tableView?.refreshControl?.endRefreshing()
+        
+        let beforeContentSize = self.tableView?.contentSize
+        
+        self.tableView?.reloadData()
+        
+        if (newMsgs?.count)! == 0 {
+            self.tableView?.refreshControl = nil
+        }
+        
+        let afterContentSize = self.tableView?.contentSize
+        
+        let afterContentOffset = self.tableView?.contentOffset
+        
+        self.tableView?.setContentOffset(CGPoint.init(x: (afterContentOffset?.x)!, y:  (afterContentSize?.height)! - (beforeContentSize?.height)!), animated: false)
+        }
     }
     
     

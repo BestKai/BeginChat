@@ -44,7 +44,7 @@ enum YKMessageOwnerType: Int {
  */
 enum YKConversationType: Int {
     case Single = 0 //单聊
-    case Group      //群聊
+    case Group  = 1 //群聊
 }
 
 let kAVIMMessageMediaTypeSystem: AVIMMessageMediaType = AVIMMessageMediaType(rawValue: -7)!
@@ -261,8 +261,8 @@ extension YKMessage {
         }
         
         let interval: Int = Int(self.timestamp! - (lastMessage?.timestamp)!)
-        
-        let limitInterval = 60*3
+            
+        let limitInterval = 60*3*1000
         
         if interval > limitInterval {
             return true

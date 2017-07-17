@@ -10,7 +10,7 @@ target 'BeginChat' do
     pod 'IQKeyboardManager'
     pod 'Kingfisher', :git => 'https://github.com/onevcat/Kingfisher.git', :branch => 'swift4'
     pod 'MBProgressHUD'
-    pod 'SQLite.swift', :git => 'https://github.com/thebluepotato/SQLite.swift.git', :branch => 'swift-4'
+    pod 'SQLite.swift', :git => 'https://github.com/stephencelis/SQLite.swift.git', :branch => 'swift-4'
 end
 post_install do |installer|
     installer.pods_project.targets.each do |target|

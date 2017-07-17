@@ -125,16 +125,14 @@ class YKRegisterViewController: UIViewController,UITextFieldDelegate {
         
         if (phoneNumberStr?.isAvaliablePhoneNumber())! {
             
-            self.startcountdownTimer()
-            
-//            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNumberStr, zone: "86", customIdentifier: nil, result: { (error) in
-//                if error == nil {
-//                    print("验证码发送成功")
-//                    self.startcountdownTimer()
-//                }else{
-//                   self.showErrorMessage(errorMsg: (error?.localizedDescription)!)
-//                }
-//            })
+            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNumberStr, zone: "86", result: { (error) in
+                if error == nil {
+                    print("验证码发送成功")
+                    self.startcountdownTimer()
+                }else{
+                    YKProgressView.showErrorMessage(errorMsg: (error?.localizedDescription)!, view: (self.navigationController?.view)!)
+                }
+            })
         }else{
             YKProgressView.showErrorMessage(errorMsg: "手机号非法", view: (self.navigationController?.view)!)
         }
@@ -207,6 +205,10 @@ class YKRegisterViewController: UIViewController,UITextFieldDelegate {
         }
     }
     
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

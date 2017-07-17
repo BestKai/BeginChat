@@ -58,12 +58,7 @@ class YKContactsService: NSObject {
         
          do {
             for user in try database!.prepare(contactTable!) {
-                
-                let ykuser:YKUser = YKUser.init()
-                ykuser.userId = user.get(Expression("id"))
-                ykuser.name = user.get(Expression("nickName"))
-                ykuser.avatarURL = URL.init(string: user.get(Expression("avatar")))
-                tempDatas.append(ykuser)
+                tempDatas.append(self.getUserWithResult(result: user))
             }
         } catch {
             print("Contact查询出错")
@@ -96,5 +91,42 @@ class YKContactsService: NSObject {
         } catch {
             print("插入数据错误")
         }
+    }
+    
+    
+    //MARK: - ****** 从数据库查找用户 ******
+    func getLocalUserWithUserId(userId:String) -> YKUser? {
+        let users = self.getLocalUsersWithUserIds(userIds: [userId])
+        
+        if users.isEmpty {
+            return nil
+        }
+        return users[0]
+    }
+    
+    
+    func getLocalUsersWithUserIds(userIds:Array<String>) -> Array<YKUser> {
+        
+        let filterQuery = contactTable?.filter(userIds.contains(Expression<String>("id")))
+        var users = Array<YKUser>()
+
+        do {
+            for user in (try YKConversationService.defaultService().database?.prepare(filterQuery!))! {
+                
+                users.append(self.getUserWithResult(result: user))
+            }
+        } catch {
+            print("\(error)")
+        }
+        return users
+    }
+    
+    func getUserWithResult(result:Row) -> YKUser {
+        
+        let ykuser:YKUser = YKUser.init()
+        ykuser.userId = result.get(Expression("id"))
+        ykuser.name = result.get(Expression("nickName"))
+        ykuser.avatarURL = URL.init(string: result.get(Expression("avatar")))
+        return ykuser
     }
 }
